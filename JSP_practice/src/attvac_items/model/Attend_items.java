@@ -5,13 +5,13 @@ import java.util.Date;
 public class Attend_items {
 	
 	private String att_name;
-	private Date att_unit;
+	private String att_unit;
 	private String att_grp;
 	private String att_deduction;
 	private String att_conn;
 	private String att_used;
 	
-	public Attend_items(String att_name, Date att_unit, String att_grp, String att_deduction, String att_conn,
+	public Attend_items(String att_name, String att_unit, String att_grp, String att_deduction, String att_conn,
 			String att_used) {
 		
 		this.att_name = att_name;
@@ -30,11 +30,11 @@ public class Attend_items {
 		this.att_name = att_name;
 	}
 
-	public Date getAtt_unit() {
+	public String getAtt_unit() {
 		return att_unit;
 	}
 
-	public void setAtt_unit(Date att_unit) {
+	public void setAtt_unit(String att_unit) {
 		this.att_unit = att_unit;
 	}
 

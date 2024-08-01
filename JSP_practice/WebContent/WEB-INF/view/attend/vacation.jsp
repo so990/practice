@@ -54,7 +54,7 @@
 				</div>
 
 				<div style="width: 49%; float: right;">
-					<form action="vac.do" method='post'>
+					<form action="att.do" method='post'>
 						<table width=90% border='1'>
 
 							<tr>
@@ -73,7 +73,7 @@
 								<td>사용여부</td>
 								<td>
 									<form action method="get">
-										<input type="radio" name="vac_used" value="사용"> 사용<br>
+										<input type="radio" name="vac_used" value="사용" checked> 사용<br>
 										<input type="radio" name="vac_used" value="사용안함"> 사용안함<br>
 									</form>
 								</td>
@@ -86,7 +86,7 @@
 		</td>
 		</tr>
 <!-- --------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------- -->
+--------------------------------------------------------------------------------------------------------------------- -->
 		
 		<table width='100%' border='0'>
 		<tr>
@@ -99,6 +99,7 @@
 							<td>단위</td>
 							<td>그룹관리</td>
 							<td>휴가공제</td>
+							<td>근로시간연계</td>
 							<td>사용여부</td>
 						</tr>
 
@@ -122,31 +123,74 @@
 
 							<tr>
 								<td>근태항목</td>
-								<td><input type='text' name='att_name'
-									value='${attend_items.att_name }'></td>
+								<td><input type='text' name='att_name' value='${attend_items.att_name }'></td>
 							</tr>
+							
 							<tr>
 								<td>단위</td>
-								<td colspan='3'><input type="date" name="vac_start"
-									value='${vacation_items.vac_start }'> ~ <input
-									type="date" name="vac_end" value='${vacation_items.vac_end }'></td>
+									<td>
+										<select name="att_unit">
+								            <option value="선택하세요">선택하세요</option>
+								            <option value="일">일</option>
+								            <option value="시간">시간</option>
+								        </select>
+									</td>
+							</tr>
+							
+							<tr>
+								<td>근태그룹</td>
+									<td>
+										<select name="att_grp">
+								            <option value="선택하세요">선택하세요</option>
+								            <option value="휴가">휴가</option>
+								            <option value="연장근무">연장근무</option>
+								            <option value="지각조퇴">지각조퇴</option>
+								            <option value="특근">특근</option>
+								            <option value="기타">기타</option>
+								        </select>
+									</td>
+							</tr>
+							
+							<tr>
+								<td>휴가공제</td>
+									<td>
+										<select name="att_deduction">
+								            <option value="선택하세요">선택하세요</option>
+									           	<c:forEach var="vac" items="${list_vac}">
+									            	<option value="휴가공제">${vac.vac_name}</option>
+									            </c:forEach>
+								        </select>
+									</td>
+							</tr>
+							
+							<tr>
+								<td>근로시간연계</td>
+									<td>
+										<select name="att_conn">
+								            <option value="선택하세요">선택하세요</option>
+								            <option value="소정근로">소정근로</option>
+								            <option value="연장근로">연장근로</option>
+								            <option value="야간근로">야간근로</option>
+								            <option value="휴일근로">휴일근로</option>
+								        </select>
+									</td>
 							</tr>
 
 							<tr>
-								<td>사용여부:</td>
+								<td>사용여부</td>
 								<td>
 									<form action method="get">
-										<input type="radio" name="vac_used" value="사용"> 사용<br>
-										<input type="radio" name="vac_used" value="사용안함"> 사용안함<br>
+										<input type="radio" name="att_used" value="사용" checked> 사용<br>
+										<input type="radio" name="att_used" value="사용안함"> 사용안함<br>
 									</form>
 								</td>
-							</tr>
+							
 						</table>
 		<br/>
 		<input type='submit' value='저장'>
 		</form>
 		</div>
-		</td>
+			</td>
 		</tr>
 </body>
 </html>

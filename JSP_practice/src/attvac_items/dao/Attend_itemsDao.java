@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import attvac_items.model.Attend_items;
@@ -22,7 +21,7 @@ public class Attend_itemsDao {
 		try {
 			pstmt = conn.prepareStatement("insert into attend_items values(?,?,?,?,?,?)");
 			pstmt.setString(1, att.getAtt_name());
-			pstmt.setTimestamp(2, toTimestamp(att.getAtt_unit()));
+			pstmt.setString(2, att.getAtt_unit());
 			pstmt.setString(3, att.getAtt_grp());
 			pstmt.setString(4, att.getAtt_deduction());
 			pstmt.setString(5, att.getAtt_conn());
@@ -89,14 +88,10 @@ public class Attend_itemsDao {
 	        }
 	    }
 	
-	private Timestamp toTimestamp(Date date) {
-		return new Timestamp(date.getTime());
-	}
-	
 	private Attend_items convertAttend_items(ResultSet rs) throws SQLException {
 		return new Attend_items(
 				rs.getString("att_name"),        
-                rs.getDate("appo_date"),
+                rs.getString("att_unit"),
                 rs.getString("att_grp"),
                 rs.getString("att_deduction"),
                 rs.getString("att_conn"),
