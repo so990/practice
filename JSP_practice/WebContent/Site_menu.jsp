@@ -57,9 +57,9 @@
 	<ul>
 		<li><a href="#">基本環境設定</a>
 			<ul>
-				<li><a href="company.do">ユーザー情報</a></li>
-				<li><a href="register.do">社員登録</a></li>
-				<li><a href="vac.do">休暇・勤怠設定</a></li>
+				<li><a href="#">ユーザー情報</a></li>
+				<li><a href="#">社員登録</a></li>
+				<li><a href="#">休暇・勤怠設定</a></li>
 				<li><a href="#">給与項目設定</a></li>
 			</ul>
 		</li>
@@ -93,11 +93,11 @@
 				<li><a href="#">４大保険控除内訳</a></li>
 			</ul>
 		</li>
-		<li><a href="#">退職管理</a>
+		<li><a href="${pageContext.request.contextPath}/retireProcess.do">退職管理</a>
 			<ul>
-				<li><a href="#">社員退職処理</a></li>
-				<li><a href="#">退職給与入力・管理</a></li>
-				<li><a href="#">退職給与明細書</a></li>
+				<li><a href="${pageContext.request.contextPath}/retireProcess.do">社員退職処理</a></li>
+				<li><a href="${pageContext.request.contextPath}/retirePay.do">退職給与入力・管理</a></li>
+				<li><a href="${pageContext.request.contextPath}/retirePayLog.do">退職給与明細書</a></li>
 			</ul>
 		</li>
 	</ul>
