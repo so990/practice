@@ -9,10 +9,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import jdbc.JdbcUtil;
-import personnel.model.Appointment;
-import personnel.model.Attend_items;
 import personnel.model.Career;
-import personnel.model.Employee;
 
 public class CareerDao {
 	

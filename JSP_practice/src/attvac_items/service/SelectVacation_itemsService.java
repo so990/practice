@@ -4,9 +4,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import attvac_items.dao.Vacation_itemsDao;
+import attvac_items.model.Vacation_items;
 import jdbc.connection.ConnectionProvider;
-import personnel.dao.Vacation_itemsDao;
-import personnel.model.Vacation_items;
+
 
 public class SelectVacation_itemsService {
 	private Vacation_itemsDao vacation_itemsDao = new Vacation_itemsDao();

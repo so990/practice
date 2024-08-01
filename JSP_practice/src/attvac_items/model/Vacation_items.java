@@ -1,4 +1,4 @@
-package personnel.model;
+package attvac_items.model;
 
 import java.util.Date;
 

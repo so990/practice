@@ -3,11 +3,10 @@ package attvac_items.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import attvac_items.dao.Vacation_itemsDao;
+import attvac_items.model.Vacation_items;
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
-import personnel.dao.Vacation_itemsDao;
-import personnel.model.Employee;
-import personnel.model.Vacation_items;
 
 public class InsertVacation_itemsService {
 	

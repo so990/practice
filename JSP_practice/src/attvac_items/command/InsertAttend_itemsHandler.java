@@ -9,21 +9,22 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import attvac_items.model.Attend_items;
 import attvac_items.model.Vacation_items;
-import attvac_items.service.InsertVacation_itemsService;
-import attvac_items.service.SelectVacation_itemsService;
+import attvac_items.service.Attend_itemsRequest;
+import attvac_items.service.InsertAttend_itemsService;
+import attvac_items.service.SelectAttend_itemsService;
 import attvac_items.service.Vacation_itemsRequest;
 import mvc.command.CommandHandler;
 
-public class InsertVacation_itemsHandler implements CommandHandler {
+public class InsertAttend_itemsHandler implements CommandHandler {
 	private static final String FORM_VIEW = "/WEB-INF/view/attend/vacation.jsp";
-	private InsertVacation_itemsService insertService = new InsertVacation_itemsService();
-	private SelectVacation_itemsService selectService = new SelectVacation_itemsService();
+	private InsertAttend_itemsService insertService = new InsertAttend_itemsService();
+	private SelectAttend_itemsService selectService = new SelectAttend_itemsService();
 	
 	// DATE형 입출력이 있을때 사용하세요
 	SimpleDateFormat fdate = new SimpleDateFormat("yyyy-MM-dd"); //같은 형식으로 맞춰줌
-    Date vac_start;
-    Date vac_end;
+    Date att_unit;
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -39,8 +40,8 @@ public class InsertVacation_itemsHandler implements CommandHandler {
 
 	private String processForm(HttpServletRequest req, HttpServletResponse res) {
 		
-		List<Vacation_items> list_vac = selectService.select();
-		req.setAttribute("list_vac", list_vac);
+		List<Attend_items> list_att = selectService.select();
+		req.setAttribute("list_att", list_att);
 		
 		return FORM_VIEW;
 	}
@@ -51,35 +52,32 @@ public class InsertVacation_itemsHandler implements CommandHandler {
 		req.setAttribute("errors", errors);
 		
 		try { 
-			if (req.getParameter("vac_start") == null || req.getParameter("vac_start").isEmpty()) {
-				vac_start = null;
+			if (req.getParameter("att_unit") == null || req.getParameter("att_unit").isEmpty()) {
+				att_unit = null;
 			}else {
-				vac_start = Date.valueOf(req.getParameter("vac_start"));
-			}
-			if (req.getParameter("vac_end") == null || req.getParameter("vac_end").isEmpty()) {
-				vac_end = null;
-			}else {
-				vac_end = Date.valueOf(req.getParameter("vac_end"));
+				att_unit = Date.valueOf(req.getParameter("att_unit"));
 			}
 			
-			Vacation_itemsRequest vacReq = new Vacation_itemsRequest(
-					req.getParameter("vac_name"),
-					vac_start,
-					vac_end,
-					req.getParameter("vac_used")
+			Attend_itemsRequest attReq = new Attend_itemsRequest(
+					req.getParameter("att_name"),
+					att_unit,
+					req.getParameter("att_grp"),
+					req.getParameter("att_deduction"),
+					req.getParameter("att_conn"),
+					req.getParameter("att_used")
 					);
 				
-			vacReq.validate(errors);
+			attReq.validate(errors);
 			
 			if(!errors.isEmpty()) {	// 에러가있으면 newArticleForm 주소를 반환
 				return FORM_VIEW;
 		}
 		
 		//작성과 DB에 저장이 성공적으로 완료되면 저장
-		Vacation_items vacation_items = insertService.insert(vacReq);
+		Attend_items attend_items = insertService.insert(attReq);
 		
-		List<Vacation_items> list_vac = selectService.select();
-		req.setAttribute("list_vac", list_vac);
+		List<Attend_items> list_att = selectService.select();
+		req.setAttribute("list_att", list_att);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

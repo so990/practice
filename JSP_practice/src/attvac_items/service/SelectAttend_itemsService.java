@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import attvac_items.dao.Attend_itemsDao;
+import attvac_items.model.Attend_items;
 import jdbc.connection.ConnectionProvider;
-import personnel.dao.Attend_itemsDao;
-import personnel.model.Attend_items;
 
 public class SelectAttend_itemsService {
 	private Attend_itemsDao attend_itemsDao = new Attend_itemsDao();
