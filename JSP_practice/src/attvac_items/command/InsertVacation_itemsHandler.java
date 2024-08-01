@@ -16,7 +16,7 @@ import mvc.command.CommandHandler;
 import personnel.model.Vacation_items;
 
 public class InsertVacation_itemsHandler implements CommandHandler {
-	private static final String FORM_VIEW = "/vacation.jsp";
+	private static final String FORM_VIEW = "/WEB-INF/view/attend/vacation.jsp";
 	private InsertVacation_itemsService insertService = new InsertVacation_itemsService();
 	private SelectVacation_itemsService selectService = new SelectVacation_itemsService();
 	

@@ -15,18 +15,18 @@
 		<table width='100%' border='0'>
 			<tr height='100'>
 				<td align='left'>
-					<%@ include file="Site_header.jsp" %>
+					<%@ include file="../../../Site_header.jsp" %>
 				</td>
 			</tr>
 			<tr>
 				<td align='left'>
-					<%@ include file="Site_menu.jsp" %>
+					<%@ include file="../../../Site_menu.jsp" %>
 				</td>
 			</tr>
 			<tr>
 				<td align='center'>
 				
-				<form action = "Register.do" method="post">
+				<form action = "register.do" method="post">
 					<p>
 						사원번호 : <br/><input type="text" name="emp_no" value="${newEmployeeNo}">
 					</p>

@@ -15,7 +15,7 @@ import personnel.service.InsertEmployeeService;
 
 public class InsertEmployeeHandler implements CommandHandler {
 
-	private static final String FORM_VIEW = "/empRegister.jsp";
+	private static final String FORM_VIEW = "/WEB-INF/view/personnel/empRegister.jsp";
 	private InsertEmployeeService insertService = new InsertEmployeeService();
 
 	@Override

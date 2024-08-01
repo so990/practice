@@ -16,7 +16,7 @@ import company.service.SelectCompanyService;
 import mvc.command.CommandHandler;
 
 public class InsertCompanyHandler implements CommandHandler {
-	private static final String FORM_VIEW = "/userInfo.jsp";
+	private static final String FORM_VIEW = "/WEB-INF/view/setting/userInfo.jsp";
 	private InsertCompanyService insertService = new InsertCompanyService();
 	private SelectCompanyService selectService = new SelectCompanyService();
 
