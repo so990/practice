@@ -50,26 +50,7 @@ public class Vacation_itemsDao {
 		}
 	}
 	
-	 public Vacation_items selectByName(Connection conn, String name) throws SQLException {
-	      PreparedStatement pstmt = null;
-	      ResultSet rs = null;
-	      try {
-	         pstmt=conn.prepareStatement("select*from vacation_items where vac_name=?");
-	         pstmt.setString(1, name);
-	         rs = pstmt.executeQuery();
-	         Vacation_items vacation_items = null;
-	         if(rs.next()) {
-	        	 vacation_items = convertVacation_items(rs);
-	         }
-	         return vacation_items;
-	      } finally {
-	         JdbcUtil.close(rs);
-	         JdbcUtil.close(pstmt);
-	      }
-	   }
-	 
-	// 모든 직원 정보를 반환하는 메소드
-	    public List<Vacation_items> selectAll(Connection conn) throws SQLException {
+	 public List<Vacation_items> selectAll(Connection conn) throws SQLException {
 	        PreparedStatement pstmt = null;
 	        ResultSet rs = null;
 	        try {
@@ -85,7 +66,7 @@ public class Vacation_itemsDao {
 	            JdbcUtil.close(pstmt);
 	        }
 	    }
-	    
+	
 	private Timestamp toTimestamp(Date date) {
 		return new Timestamp(date.getTime());
 	}
@@ -96,6 +77,6 @@ public class Vacation_itemsDao {
             rs.getDate("vac_start"),
             rs.getDate("vac_end"),
             rs.getString("vac_used")
-				);
-	}
+			);
+	}	
 }

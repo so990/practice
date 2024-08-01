@@ -59,7 +59,7 @@
 			<ul>
 				<li><a href="company.do">ユーザー情報</a></li>
 				<li><a href="register.do">社員登録</a></li>
-				<li><a href="#">休暇・勤怠設定</a></li>
+				<li><a href="vac.do">休暇・勤怠設定</a></li>
 				<li><a href="#">給与項目設定</a></li>
 			</ul>
 		</li>

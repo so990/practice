@@ -1,6 +1,6 @@
 package company.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Company {
 	private String cp_name;

@@ -10,7 +10,6 @@ import jdbc.connection.ConnectionProvider;
 import company.dao.CompanyDao;
 
 public class InsertCompanyService {
-	
 	private CompanyDao companyDao = new CompanyDao();
 	
 	public Company insert(CompanyRequest req) {

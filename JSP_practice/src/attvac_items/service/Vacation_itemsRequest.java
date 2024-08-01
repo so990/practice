@@ -1,4 +1,4 @@
-package personnel.service;
+package attvac_items.service;
 
 import java.util.Date;
 import java.util.Map;
@@ -9,9 +9,9 @@ public class Vacation_itemsRequest {
 	private Date vac_start;
 	private Date vac_end;
 	private String vac_used;
-	
+
 	public Vacation_itemsRequest(String vac_name, Date vac_start, Date vac_end, String vac_used) {
-		
+
 		this.vac_name = vac_name;
 		this.vac_start = vac_start;
 		this.vac_end = vac_end;
@@ -54,12 +54,12 @@ public class Vacation_itemsRequest {
 		checkEmpty(errors, vac_start, "vac_start");
 		checkEmpty(errors, vac_end, "vac_end");
 	}
-	
+
 	private void checkEmpty(Map<String, Boolean> errors, String value, String fieldName) {
 		if(value==null||value.isEmpty())
 			errors.put(fieldName, Boolean.TRUE);
 	}
-	
+
 	private void checkEmpty(Map<String, Boolean> errors, Date value, String fieldName) {
 		if(value==null||value.toString().isEmpty())
 			errors.put(fieldName, Boolean.TRUE);

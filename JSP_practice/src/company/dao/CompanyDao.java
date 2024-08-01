@@ -31,7 +31,7 @@ public class CompanyDao {
 						rs.getString("ceo_name"),
 						rs.getString("bs_num"),
 						rs.getString("bs_regnum"),
-						toDate(rs.getTimestamp("founded_date")),
+						rs.getDate("founded_date"),
 						rs.getString("hp"),
 						rs.getString("bs_post"),
 						rs.getString("bs_addr"),
@@ -39,9 +39,9 @@ public class CompanyDao {
 						rs.getString("bs_fax"),
 						rs.getString("bs_type"),
 						rs.getString("cp_type"),
-						toDate(rs.getTimestamp("calc_start")),
-						toDate(rs.getTimestamp("calc_end")),
-						toDate(rs.getTimestamp("payday")),
+						rs.getDate("calc_start"),
+						rs.getDate("calc_end"),
+						rs.getDate("payday"),
 						rs.getString("bs_bank"),
 						rs.getString("bs_account"),
 						rs.getString("bs_acc_name"));
@@ -51,11 +51,6 @@ public class CompanyDao {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
 		}
-	}
-	
-	private Date toDate(Timestamp date) {
-		//Timestamp 객체 date가 null이 아니면 Date 객체로 바꾸어 반환 
-		return date == null ? null : new Date(date.getTime());
 	}
 	
 	public Company insert(Connection conn, Company cpn) throws SQLException{
@@ -73,7 +68,7 @@ public class CompanyDao {
 			pstmt.setString(5, cpn.getBs_regnum());
 			if(cpn.getFounded_date() == null)
 				pstmt.setTimestamp(6, null);
-			else pstmt.setTimestamp(6, new Timestamp(cpn.getFounded_date().getTime()));
+			else pstmt.setDate(6, cpn.getFounded_date());
 			pstmt.setString(7, cpn.getHp());
 			pstmt.setString(8, cpn.getBs_post());
 			pstmt.setString(9, cpn.getBs_addr());
@@ -83,13 +78,13 @@ public class CompanyDao {
 			pstmt.setString(13, cpn.getCp_type());
 			if(cpn.getCalc_start() == null)
 				pstmt.setTimestamp(14, null);
-			else pstmt.setTimestamp(14, new Timestamp(cpn.getCalc_start().getTime()));
+			else pstmt.setDate(14, cpn.getCalc_start());
 			if(cpn.getCalc_end() == null)
 				pstmt.setTimestamp(15, null);
-			else pstmt.setTimestamp(15, new Timestamp(cpn.getCalc_end().getTime()));
+			else pstmt.setDate(15, cpn.getCalc_end());
 			if(cpn.getPayday() == null)
 				pstmt.setTimestamp(16, null);
-			else pstmt.setTimestamp(16, new Timestamp(cpn.getPayday().getTime()));
+			else pstmt.setDate(16, cpn.getPayday());
 			pstmt.setString(17, cpn.getBs_bank());
 			pstmt.setString(18, cpn.getBs_account());
 			pstmt.setString(19, cpn.getBs_acc_name());

@@ -1,4 +1,4 @@
-package personnel.service;
+package attvac_items.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;

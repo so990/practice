@@ -1,6 +1,6 @@
 package company.service;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Map;
 
 public class CompanyRequest {
@@ -30,7 +30,7 @@ public class CompanyRequest {
 			Date founded_date, String hp, String bs_post, String bs_addr, String bs_phone, String bs_fax,
 			String bs_type, String cp_type, Date calc_start, Date calc_end, Date payday, String bs_bank,
 			String bs_account, String bs_acc_name) {
-		super();
+
 		this.cp_name = cp_name;
 		this.ceo_job = ceo_job;
 		this.ceo_name = ceo_name;
