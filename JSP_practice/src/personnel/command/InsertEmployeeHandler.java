@@ -80,6 +80,6 @@ public class InsertEmployeeHandler implements CommandHandler {
 		int newEmployeeNo = insertService.insert(employeeReq) + 1;
 		req.setAttribute("newEmployeeNo", newEmployeeNo);
 		
-		return "/empRegister.jsp";
+		return FORM_VIEW;
 	}
 }

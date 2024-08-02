@@ -64,9 +64,9 @@
 							</tr>
 							<tr>
 								<td>적용기간</td>
-								<td colspan='3'><input type="date" name="vac_start"
-									value='${vacation_items.vac_start }'> ~ <input
-									type="date" name="vac_end" value='${vacation_items.vac_end }'></td>
+								<td colspan='3'><input type="date" name="vac_start" value='${vacation_items.vac_start }'> ~ 
+								 ~ 
+								<input type="date" name="vac_end" value='${vacation_items.vac_end }'></td>
 							</tr>
 
 							<tr>
@@ -157,7 +157,7 @@
 										<select name="att_deduction">
 								            <option value="선택하세요">선택하세요</option>
 									           	<c:forEach var="vac" items="${list_vac}">
-									            	<option value="휴가공제">${vac.vac_name}</option>
+									            	<option value="${vac.vac_name}">${vac.vac_name}</option>
 									            </c:forEach>
 								        </select>
 									</td>

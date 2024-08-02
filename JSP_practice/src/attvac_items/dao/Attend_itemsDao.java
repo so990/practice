@@ -19,6 +19,7 @@ public class Attend_itemsDao {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
+			
 			pstmt = conn.prepareStatement("insert into attend_items values(?,?,?,?,?,?)");
 			pstmt.setString(1, att.getAtt_name());
 			pstmt.setString(2, att.getAtt_unit());
@@ -26,7 +27,7 @@ public class Attend_itemsDao {
 			pstmt.setString(4, att.getAtt_deduction());
 			pstmt.setString(5, att.getAtt_conn());
 			pstmt.setString(6, att.getAtt_used());
-						
+		
 			int insertedCount = pstmt.executeUpdate();
 			
 			if(insertedCount>0) {
@@ -35,7 +36,6 @@ public class Attend_itemsDao {
 				if(rs.next()) {
 					
 					String newNum = rs.getString(1);
-					
 					return new Attend_items(newNum, 
 							att.getAtt_unit(),
 							att.getAtt_grp(),
