@@ -88,7 +88,7 @@ public class InsertAttend_itemsHandler implements CommandHandler {
 					);
 
 			attReq.validate(errors);
-			
+		
 			List<Vacation_items> list_vac = selectVacService.select();
 			req.setAttribute("list_vac", list_vac);
 			
@@ -98,10 +98,20 @@ public class InsertAttend_itemsHandler implements CommandHandler {
 			if(!errors.isEmpty()) {	// 에러가있으면 newArticleForm 주소를 반환
 				return FORM_VIEW;
 		}
+			
+			Attend_items attend_items = insertAttService.insert(attReq);
+			Vacation_items vacation_items = insertVacService.insert(vacReq);
+			
+			list_vac = selectVacService.select();
+			req.setAttribute("list_vac", list_vac);
+			
+			list_att = selectAttService.select();
+			req.setAttribute("list_att", list_att);
+			
+			
 		
 		//작성과 DB에 저장이 성공적으로 완료되면 저장
-		Attend_items attend_items = insertAttService.insert(attReq);
-		Vacation_items vacation_items = insertVacService.insert(vacReq);
+		
 		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
