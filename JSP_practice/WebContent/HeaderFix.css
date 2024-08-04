@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow: auto; /* 페이지 창에 스크롤바를 적용 */
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    .content {
+        flex: 1;
+        overflow: auto;
+    }
+    .container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 20px;
+    }
+    .container div {
+        width: 48%;
+        box-sizing: border-box;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    .form-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .form-container input[type="submit"] {
+        margin-top: 10px;
+    }

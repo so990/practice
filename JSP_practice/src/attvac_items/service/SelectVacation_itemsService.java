@@ -5,13 +5,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 import attvac_items.dao.Vacation_itemsDao;
+import attvac_items.model.Vacation_days_setting;
 import attvac_items.model.Vacation_items;
 import jdbc.connection.ConnectionProvider;
 
 
 public class SelectVacation_itemsService {
+	
 	private Vacation_itemsDao vacation_itemsDao = new Vacation_itemsDao();
-
+	
 	public List<Vacation_items> select() {
 		try(Connection conn = ConnectionProvider.getConnection()) {
 
@@ -24,4 +26,15 @@ public class SelectVacation_itemsService {
 		}
 	}
 
+	public List<Vacation_days_setting> selectM() {
+		try(Connection conn = ConnectionProvider.getConnection()) {
+
+			List<Vacation_days_setting> vacation_days_setting = vacation_itemsDao.selectModal(conn);	
+			
+			return vacation_days_setting;
+
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

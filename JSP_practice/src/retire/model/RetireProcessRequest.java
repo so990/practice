@@ -14,8 +14,6 @@ public class RetireProcessRequest {
 	private Date retired_date;
 	private String years_service; //근속연수
 	
-	
-	
 	//퇴직 테이블
 	private String retire_type; //퇴직구분(정년퇴직...)
 	private Date retire_date; // 퇴직일자

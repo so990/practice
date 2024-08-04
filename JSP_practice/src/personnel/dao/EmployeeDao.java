@@ -186,4 +186,9 @@ public class EmployeeDao {
                 rs.getString("account")
                 );
 	}
+
+	public Employee selectByNo(Connection conn, int emp_no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

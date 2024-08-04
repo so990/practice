@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import attvac_items.model.Vacation_days;
+import attvac_items.model.Vacation_days_setting;
 import attvac_items.model.Vacation_items;
 import jdbc.JdbcUtil;
 
@@ -66,6 +68,23 @@ public class Vacation_itemsDao {
 	            JdbcUtil.close(pstmt);
 	        }
 	    }
+	 
+	 public List<Vacation_days_setting> selectModal(Connection conn) throws SQLException {
+	        PreparedStatement pstmt = null;
+	        ResultSet rs = null;
+	        try {
+	            pstmt = conn.prepareStatement("SELECT e.emp_type, e.emp_no, e.name_kor, e.dept, e.job, e.hired_date, vd.has_vac_days FROM employee e JOIN vacation_days vd ON e.emp_no = vd.emp_no ORDER BY e.dept ASC");
+	            rs = pstmt.executeQuery();
+	            List<Vacation_days_setting> result = new ArrayList<>();
+	            while (rs.next()) {
+	                result.add(convertVacation_days_setting(rs));
+	            }
+	            return result;
+	        } finally {
+	            JdbcUtil.close(rs);
+	            JdbcUtil.close(pstmt);
+	        }
+	    }
 	
 	private Timestamp toTimestamp(Date date) {
 		return new Timestamp(date.getTime());
@@ -79,4 +98,16 @@ public class Vacation_itemsDao {
             rs.getString("vac_used")
 			);
 	}	
+	
+	private Vacation_days_setting convertVacation_days_setting(ResultSet rs) throws SQLException {
+		return new Vacation_days_setting(
+            rs.getString("emp_type"),
+            rs.getInt("emp_no"),
+            rs.getString("name_kor"),
+            rs.getString("dept"),
+            rs.getString("job"),
+            rs.getDate("hired_date"),
+            rs.getInt("has_vac_days")
+			);
+	}
 }

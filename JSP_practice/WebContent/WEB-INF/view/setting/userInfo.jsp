@@ -14,6 +14,8 @@
 		<script>
 	        function successJoin() {
 	            alert('사용자 정보가 저장되었습니다.');
+	            }
+	            
 	    </script>
 		
 	</head>
@@ -21,17 +23,19 @@
 		<table width='100%' border='0'>
 			<tr height='100'>
 				<td align='left'>
-					<%@ include file="../../../Site_header.jsp" %>
+					<%@ include file="/../../../Site_header.jsp" %>
 				</td>
 			</tr>
 			<tr>
 				<td align='left'>
-					<%@ include file="../../../Site_menu.jsp" %>
+					<%@ include file="/../../../Site_menu.jsp" %>
 				</td>
 			</tr>
 			<tr >
 				<td align='center'>
-					<form action="company.do" method='post'>
+					<h2>사용자 정보</h2>
+					<br/>
+					<form action="company.do" method='post' onSubmit='successJoin()'>
 					<h3>회사정보</h3>
 					<table width='80%' border='1'>
 					<tr>
@@ -45,7 +49,7 @@
 						<td>법인등록번호:</td><td><input type='text' name='bs_regnum' value='${company.bs_regnum }'></td>
 					</tr>
 					<tr>
-						<td>설립일:</td><td><input type='text' name='founded_date'value='${company.founded_date }'></td>
+						<td>설립일:</td><td><input type='date' name='founded_date'value='${company.founded_date }'></td>
 						<td>홈페이지:</td><td><input type='text' name='hp' value='${company.hp }'></td>
 					</tr>
 					<tr>
@@ -66,9 +70,9 @@
 					<h3>급여지급정보</h3>
 					<table width='80%' border='1'>
 					<tr>
-						<td>급여산정기간:</td><td><input type='text' name='calc_start' value='${company.calc_start }'>
-					 ~ <input type='text' name='calc_end' value='${company.calc_end }'></td>
-						<td>급여지급일:</td><td><input type='text' name='payday' value='${company.payday }'></td>
+						<td>급여산정기간:</td><td><input type='date' name='calc_start' value='${company.calc_start }'>
+					 ~ <input type='date' name='calc_end' value='${company.calc_end }'></td>
+						<td>급여지급일:</td><td><input type='date' name='payday' value='${company.payday }'></td>
 					</tr>
 					<tr>
 						<td>금융기관:</td><td><input type='text' name='bs_bank' value='${company.bs_bank }'></td>

@@ -19,8 +19,8 @@ public class InsertAttend_itemsService {
 			conn.setAutoCommit(false);
 			
 			Attend_items attend_items = toAttend_items(req);
-			
 			Attend_items savedAttend_items= attend_itemsDao.insert(conn, attend_items);
+			
 			if(savedAttend_items == null) {
 				throw new RuntimeException("fail to insert attend_items");
 			}

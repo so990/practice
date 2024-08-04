@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import attvac_items.model.Attend_items;
+import attvac_items.model.Vacation_days_setting;
 import attvac_items.model.Vacation_items;
 import attvac_items.service.Attend_itemsRequest;
 import attvac_items.service.InsertAttend_itemsService;
@@ -19,7 +20,7 @@ import attvac_items.service.SelectVacation_itemsService;
 import attvac_items.service.Vacation_itemsRequest;
 import mvc.command.CommandHandler;
 
-public class InsertAttend_itemsHandler implements CommandHandler {
+public class AttVac_itemsHandler implements CommandHandler {
 	private static final String FORM_VIEW = "/WEB-INF/view/setting/vacation.jsp";
 
 	private InsertAttend_itemsService insertAttService = new InsertAttend_itemsService();
@@ -51,7 +52,7 @@ public class InsertAttend_itemsHandler implements CommandHandler {
 		List<Attend_items> list_att = selectAttService.select();
 		req.setAttribute("list_att", list_att);
 
-		return FORM_VIEW;
+		return FORM_VIEW;	
 	}
 
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
@@ -140,8 +141,6 @@ public class InsertAttend_itemsHandler implements CommandHandler {
 		req.setAttribute("list_att", list_att);
 		
 		return FORM_VIEW;	// 수정필요. 새창만들기? 리퀘스트에 올려서 팝업띄우기?
-		//newArticleSuccess 주소를 반환
-		
+		//newArticleSuccess 주소를 반환		
 	}
-
 }

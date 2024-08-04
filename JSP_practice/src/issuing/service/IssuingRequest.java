@@ -1,16 +1,16 @@
-package personnel.model;
+package issuing.service;
 
-import java.util.Date;
+import java.sql.Date;
 
-public class Issuing {
+public class IssuingRequest {
 	
 	private int isu_num;
 	private String isu_led;
 	private String isu_pur;
 	private Date isu_date;
 	
-	public Issuing(int isu_num, String isu_led, String isu_pur, Date isu_date) {
-		
+	public IssuingRequest(int isu_num, String isu_led, String isu_pur, Date isu_date) {
+		super();
 		this.isu_num = isu_num;
 		this.isu_led = isu_led;
 		this.isu_pur = isu_pur;
@@ -48,5 +48,5 @@ public class Issuing {
 	public void setIsu_date(Date isu_date) {
 		this.isu_date = isu_date;
 	}
-
+	
 }

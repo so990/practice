@@ -1,17 +1,13 @@
-package personnel.dao;
+package issuing.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
-import java.util.Date;
 
+import issuing.model.Issuing;
 import jdbc.JdbcUtil;
-import personnel.model.Appointment;
-import personnel.model.Family;
-import personnel.model.Issuing;
 
 public class IssuingDao {
 	
@@ -24,7 +20,7 @@ public class IssuingDao {
 			pstmt.setInt(1, isu.getIsu_num());
 			pstmt.setString(2, isu.getIsu_led());
 			pstmt.setString(3, isu.getIsu_pur());
-			pstmt.setTimestamp(4, toTimestamp(isu.getIsu_date()));
+			pstmt.setDate(4, isu.getIsu_date());
 
 			int insertedCount = pstmt.executeUpdate();
 			
@@ -50,12 +46,12 @@ public class IssuingDao {
 		}
 	}
 	
-	public Issuing selectByNum(Connection conn, String num) throws SQLException {
+	public Issuing selectByNum(Connection conn, int num) throws SQLException {
 	      PreparedStatement pstmt = null;
 	      ResultSet rs = null;
 	      try {
 	         pstmt=conn.prepareStatement("select*from issuing where isu_num=?");
-	         pstmt.setString(1, num);
+	         pstmt.setInt(1, num);
 	         rs = pstmt.executeQuery();
 	         Issuing issuing = null;
 	         if(rs.next()) {
@@ -67,11 +63,7 @@ public class IssuingDao {
 	         JdbcUtil.close(pstmt);
 	      }
 	   }
-	
-	private Timestamp toTimestamp(Date date) {
-		return new Timestamp(date.getTime());
-	}
-	
+
 	private Issuing convertIssuing(ResultSet rs) throws SQLException {
 		return new Issuing(
 				rs.getInt("isu_num"),

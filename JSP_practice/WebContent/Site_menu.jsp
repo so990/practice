@@ -60,7 +60,7 @@
 				<li><a href="company.do">ユーザー情報</a></li>
 				<li><a href="register.do">社員登録</a></li>
 				<li><a href="att.do">休暇・勤怠設定</a></li>
-				<li><a href="#">給与項目設定</a></li>
+				<li><a href="salitems.do">給与項目設定</a></li>
 			</ul>
 		</li>
 		<li><a href="#">人事管理</a>
@@ -73,9 +73,9 @@
 		</li>
 		<li><a href="#">勤怠管理</a>
 			<ul>
-				<li><a href="#">勤怠記録・管理</a></li>
-				<li><a href="#">勤怠照会</a></li>
-				<li><a href="#">休暇照会</a></li>
+				<li><a href="attend.do">勤怠記録・管理</a></li>
+				<li><a href="atdView.do">勤怠照会</a></li>
+				<li><a href="vacView.do">休暇照会</a></li>
 				<li><a href="#">日雇い勤務記録・管理</a></li>
 				<li><a href="#">日雇い勤務照会</a></li>
 			</ul>
