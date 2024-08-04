@@ -6,18 +6,18 @@ public class OneMemberRetireRequest {
 
 		private int emp_no;
 		private String retire_type; //퇴직구분(정년퇴직...)
-		private Date retire_date; // 퇴직일자
+		private Date retired_date; // 퇴직일자
 	    private String retire_reason; //퇴직사유
 	    private String retire_phone; //퇴직 후 연락처
 	    
 	    
 		public OneMemberRetireRequest() {}
 		
-		public OneMemberRetireRequest(int emp_no, String retire_type, Date retire_date, String retire_reason,
+		public OneMemberRetireRequest(int emp_no, String retire_type, Date retired_date, String retire_reason,
 				String retire_phone) {
 			this.emp_no = emp_no;
 			this.retire_type = retire_type;
-			this.retire_date = retire_date;
+			this.retired_date = retired_date;
 			this.retire_reason = retire_reason;
 			this.retire_phone = retire_phone;
 		}
@@ -38,12 +38,12 @@ public class OneMemberRetireRequest {
 			this.retire_type = retire_type;
 		}
 
-		public Date getRetire_date() {
-			return retire_date;
+		public Date getRetired_date() {
+			return retired_date;
 		}
 
-		public void setRetire_date(Date retire_date) {
-			this.retire_date = retire_date;
+		public void setRetire_date(Date retired_date) {
+			this.retired_date = retired_date;
 		}
 
 		public String getRetire_reason() {
@@ -66,7 +66,7 @@ public class OneMemberRetireRequest {
 		@Override
 		public String toString() {
 			return "OneMemberRetireRequest [emp_no=" + emp_no + ", retire_type=" + retire_type + ", retire_date="
-					+ retire_date + ", retire_reason=" + retire_reason + ", retire_phone=" + retire_phone + "]";
+					+ retired_date + ", retire_reason=" + retire_reason + ", retire_phone=" + retire_phone + "]";
 		}
 		
 		

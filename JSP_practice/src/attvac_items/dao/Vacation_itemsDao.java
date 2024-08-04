@@ -69,6 +69,8 @@ public class Vacation_itemsDao {
 	        }
 	    }
 	 
+	 
+	 //모달창 구현 join
 	 public List<Vacation_days_setting> selectModal(Connection conn) throws SQLException {
 	        PreparedStatement pstmt = null;
 	        ResultSet rs = null;

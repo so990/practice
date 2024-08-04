@@ -119,7 +119,6 @@ public class AttendManageDao2 {
                 rs.getString("name_kor"),
                 rs.getString("name_eng"),
                 rs.getDate("hired_date"),
-                rs.getDate("retired_date"),
                 rs.getString("dept"),
                 rs.getString("job"),
                 rs.getString("state"),

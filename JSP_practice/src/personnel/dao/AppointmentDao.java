@@ -5,12 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import jdbc.JdbcUtil;
 import personnel.model.Appointment;
-import personnel.model.Employee;
 
 public class AppointmentDao {
 	
@@ -22,7 +21,7 @@ public class AppointmentDao {
 			pstmt = conn.prepareStatement("insert into appointment values(?,?,?,?,?,?,?)");
 			pstmt.setInt(1, apm.getEmp_no());
 			pstmt.setString(2, apm.getAppo_type());
-			pstmt.setTimestamp(3, toTimestamp(apm.getAppo_date()));
+			pstmt.setDate(3, apm.getAppo_date());
 			pstmt.setString(4, apm.getAppo_dep());
 			pstmt.setString(5, apm.getAppo_job());
 			pstmt.setString(6, apm.getAppo_task());
@@ -72,10 +71,25 @@ public class AppointmentDao {
 	         JdbcUtil.close(pstmt);
 	      }
 	   }
-	
-	private Timestamp toTimestamp(Date date) {
-		return new Timestamp(date.getTime());
-	}
+	 
+	 public List<Appointment> selectList(Connection conn, int no) throws SQLException {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				pstmt = conn.prepareStatement("SELECT * FROM Appointment where emp_no=?");
+				pstmt.setInt(1, no);
+				
+				rs = pstmt.executeQuery();
+				List<Appointment> result = new ArrayList<>();
+				while (rs.next()) {
+					result.add(convertAppointment(rs));
+				}
+				return result;
+			} finally {
+				JdbcUtil.close(rs);
+				JdbcUtil.close(pstmt);
+			}
+		}
 	
 	private Appointment convertAppointment(ResultSet rs) throws SQLException {
 		return new Appointment(

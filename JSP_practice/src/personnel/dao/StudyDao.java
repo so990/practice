@@ -5,12 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import jdbc.JdbcUtil;
-import personnel.model.Appointment;
-import personnel.model.Reward;
 import personnel.model.Study;
 
 public class StudyDao {
@@ -76,9 +74,22 @@ public class StudyDao {
 	      }
 	   }
 	
-	private Timestamp toTimestamp(Date date) {
-		return new Timestamp(date.getTime());
-	}
+		public List<Study> selectList(Connection conn, int no) throws SQLException {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				pstmt = conn.prepareStatement("SELECT * FROM Study where emp_no=?");
+				rs = pstmt.executeQuery();
+				List<Study> result = new ArrayList<>();
+				while (rs.next()) {
+					result.add(convertStudy(rs));
+				}
+				return result;
+			} finally {
+				JdbcUtil.close(rs);
+				JdbcUtil.close(pstmt);
+			}
+		}
 	
 	private Study convertStudy(ResultSet rs) throws SQLException {
 		return new Study(

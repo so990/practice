@@ -1,22 +1,22 @@
 package personnel.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Retire {
 	
 	private int emp_no;
 	private String retire_type;
-	private Date retire_date;
+	private Date retired_date;
 	private String retire_reason;
 	private String retire_phone;
 	private String retire_cost;
 	
-	public Retire(int emp_no, String retire_type, Date retire_date, String retire_reason, String retire_phone,
+	public Retire(int emp_no, String retire_type, Date retired_date, String retire_reason, String retire_phone,
 			String retire_cost) {
 
 		this.emp_no = emp_no;
 		this.retire_type = retire_type;
-		this.retire_date = retire_date;
+		this.retired_date = retired_date;
 		this.retire_reason = retire_reason;
 		this.retire_phone = retire_phone;
 		this.retire_cost = retire_cost;
@@ -38,12 +38,12 @@ public class Retire {
 		this.retire_type = retire_type;
 	}
 
-	public Date getRetire_date() {
-		return retire_date;
+	public Date getRetired_date() {
+		return retired_date;
 	}
 
-	public void setRetire_date(Date retire_date) {
-		this.retire_date = retire_date;
+	public void setRetired_date(Date retired_date) {
+		this.retired_date = retired_date;
 	}
 
 	public String getRetire_reason() {

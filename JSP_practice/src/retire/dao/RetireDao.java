@@ -23,7 +23,7 @@ public class RetireDao {
 
 		try {
 			pstmt = conn.prepareStatement(
-					"select e.state, e.emp_no, e.name_kor, e.dept, e.job, e.hired_date, e.retired_date, r.retire_type, r.retire_date, r.retire_reason, r.retire_phone, rp.ret_calc_type_mid, rp.ret_calc_type_retire from employee e left outer join retire r on (e.emp_no = r.emp_no) left outer join retire_payment rp on (r.emp_no = rp.emp_no) order by dept asc");
+					"select e.state, e.emp_no, e.name_kor, e.dept, e.job, e.hired_date, r.retired_date, r.retire_type, r.retire_reason, r.retire_phone, rp.ret_calc_type_mid, rp.ret_calc_type_retire from employee e left outer join retire r on (e.emp_no = r.emp_no) left outer join retire_payment rp on (r.emp_no = rp.emp_no) order by dept asc");
 			rs = pstmt.executeQuery();
 
 			List<RetireProcessRequest> list = new ArrayList<>();
@@ -43,7 +43,7 @@ public class RetireDao {
 
 				rpr = new RetireProcessRequest(rs.getString("state"), rs.getInt("emp_no"), rs.getString("name_kor"),
 						rs.getString("dept"), rs.getString("job"), rs.getDate("hired_date"), rs.getDate("retired_date"),
-						years_service + "년", rs.getString("retire_type"), rs.getDate("retire_date"),
+						years_service + "년", rs.getString("retire_type"), rs.getDate("retired_date"),
 						rs.getString("retire_reason"), rs.getString("retire_phone"), rs.getString("ret_calc_type_mid"),
 						rs.getString("ret_calc_type_retire"));
 
@@ -67,7 +67,7 @@ public class RetireDao {
 			String searchCategori = searchReq.getSearchCategori();
 			if (searchCategori.equals("emp_no")) {searchCategori = "e.emp_no";}
 			pstmt = conn.prepareStatement(
-					"select e.state, e.emp_no, e.name_kor, e.dept, e.job, e.hired_date, e.retired_date, r.retire_type, r.retire_date, r.retire_reason, r.retire_phone, rp.ret_calc_type_mid, rp.ret_calc_type_retire from employee e left outer join retire r on (e.emp_no = r.emp_no) left outer join retire_payment rp on (r.emp_no = rp.emp_no) where " + searchCategori + " like ? order by dept asc");
+					"select e.state, e.emp_no, e.name_kor, e.dept, e.job, e.hired_date, r.retired_date, r.retire_type, r.retired_date, r.retire_reason, r.retire_phone, rp.ret_calc_type_mid, rp.ret_calc_type_retire from employee e left outer join retire r on (e.emp_no = r.emp_no) left outer join retire_payment rp on (r.emp_no = rp.emp_no) where " + searchCategori + " like ? order by dept asc");
 			pstmt.setString(1,  "%"+searchReq.getSearchWord()+"%");
 			rs = pstmt.executeQuery();
 
@@ -90,7 +90,7 @@ public class RetireDao {
 
 				rpr = new RetireProcessRequest(rs.getString("state"), rs.getInt("emp_no"), rs.getString("name_kor"),
 						rs.getString("dept"), rs.getString("job"), rs.getDate("hired_date"), rs.getDate("retired_date"),
-						years_service + "년", rs.getString("retire_type"), rs.getDate("retire_date"),
+						years_service + "년", rs.getString("retire_type"), rs.getDate("retired_date"),
 						rs.getString("retire_reason"), rs.getString("retire_phone"), rs.getString("ret_calc_type_mid"),
 						rs.getString("ret_calc_type_retire"));
 				System.out.println(rpr.toString());
@@ -113,7 +113,7 @@ public class RetireDao {
 		try (PreparedStatement pstmt = conn.prepareStatement("insert into retire values( ?, ?, ?, ?, ?, ?)")) {
 			pstmt.setInt(1, omrr.getEmp_no());
 			pstmt.setString(2, omrr.getRetire_type());
-			pstmt.setTimestamp(3, new Timestamp(omrr.getRetire_date().getTime()));
+			pstmt.setTimestamp(3, new Timestamp(omrr.getRetired_date().getTime()));
 			pstmt.setString(4, omrr.getRetire_reason());
 			pstmt.setString(5, omrr.getRetire_phone());
 			pstmt.setString(6, "");
@@ -125,7 +125,7 @@ public class RetireDao {
 	public void updateRetireDateToEmployeeTable(Connection conn, OneMemberRetireRequest omrr) throws SQLException {
 		try (PreparedStatement pstmt = conn
 				.prepareStatement("update employee set retired_date=?, state='퇴직' where emp_no=?")) {
-			pstmt.setTimestamp(1, new Timestamp(omrr.getRetire_date().getTime()));
+			pstmt.setTimestamp(1, new Timestamp(omrr.getRetired_date().getTime()));
 			pstmt.setInt(2, omrr.getEmp_no());
 			pstmt.executeUpdate();
 		}

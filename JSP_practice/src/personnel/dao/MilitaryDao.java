@@ -5,12 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
-import java.util.Date;
 
 import jdbc.JdbcUtil;
-import personnel.model.Appointment;
-import personnel.model.Family;
 import personnel.model.Military;
 
 public class MilitaryDao {
@@ -57,12 +53,12 @@ public class MilitaryDao {
 			JdbcUtil.close(pstmt);
 		}
 	}
-	 public Military selectByNo(Connection conn, String no) throws SQLException {
+	 public Military selectByNo(Connection conn, int no) throws SQLException {
 	      PreparedStatement pstmt = null;
 	      ResultSet rs = null;
 	      try {
 	         pstmt=conn.prepareStatement("select*from military where emp_no=?");
-	         pstmt.setString(1, no);
+	         pstmt.setInt(1, no);
 	         rs = pstmt.executeQuery();
 	         Military military = null;
 	         if(rs.next()) {
@@ -74,10 +70,6 @@ public class MilitaryDao {
 	         JdbcUtil.close(pstmt);
 	      }
 	   }
-	
-	private Timestamp toTimestamp(Date date) {
-		return new Timestamp(date.getTime());
-	}
 	
 	private Military convertMilitary(ResultSet rs) throws SQLException {
 		return new Military(
