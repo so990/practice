@@ -63,14 +63,6 @@ public class DeleteAttVavHandler implements CommandHandler {
 				
 			}
 			
-			if(req.getParameter("update_sal_name") != null) {
-				
-				String name = req.getParameter("del_sal_name");
-				
-				//deletePayService.delete(name);
-				
-			}
-			
 			if(req.getParameter("del_vac_name") != null) {
 				
 				String name = req.getParameter("del_vac_name");

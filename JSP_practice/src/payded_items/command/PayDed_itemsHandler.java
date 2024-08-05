@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import attvac_items.model.Attend_items;
-import attvac_items.model.Vacation_items;
-import attvac_items.service.Attend_itemsRequest;
 import attvac_items.service.SelectAttend_itemsService;
 import mvc.command.CommandHandler;
 import payded_items.model.Deduction_items;
@@ -17,6 +15,7 @@ import payded_items.model.Payment_items;
 import payded_items.service.Deduction_itemsRequest;
 import payded_items.service.InsertDeduction_itemsService;
 import payded_items.service.InsertPayment_itemsService;
+import payded_items.service.ModifyPayService;
 import payded_items.service.Payment_itemsRequest;
 import payded_items.service.SelectDeduction_itemsService;
 import payded_items.service.SelectPayment_itemsService;
@@ -29,6 +28,7 @@ public class PayDed_itemsHandler implements CommandHandler {
 	private InsertDeduction_itemsService insertDedService = new InsertDeduction_itemsService();
 	private SelectDeduction_itemsService selectDedService = new SelectDeduction_itemsService();
 	private SelectAttend_itemsService selectAttService = new SelectAttend_itemsService();
+	private ModifyPayService modifyPayService = new ModifyPayService();
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -142,6 +142,27 @@ public class PayDed_itemsHandler implements CommandHandler {
 				Deduction_items ded_picked = selectDedService.selectbyName(name_picked);
 				req.setAttribute("ded_picked", ded_picked);
 			
+			}
+			
+			if(req.getParameter("update_sal_name") != null) {
+				
+				String before_name = req.getParameter("before_name");
+				
+				Payment_items new_pay = new Payment_items(
+						
+						req.getParameter("pay_name"),
+						req.getParameter("pay_tax"),
+						req.getParameter("tax_free_name"),
+						req.getParameter("tax_free_limit"),
+						req.getParameter("tax_memo"),
+						req.getParameter("cut_unit"),
+						req.getParameter("attend_conn"),
+						req.getParameter("pay_cost"),
+						req.getParameter("pay_used")
+						);							
+				
+				modifyPayService.update(before_name, new_pay);
+				
 			}
 
 		} catch (Exception e) {

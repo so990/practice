@@ -102,6 +102,27 @@ public class Payment_itemsDao {
 				pstmt.executeUpdate();
 			}
 		}
+	 
+	 //지급항목 수정
+	 public int update (Connection conn, String before_name, Payment_items pay) throws SQLException{
+			try(PreparedStatement pstmt = conn.prepareStatement(
+					"update payment_items set pay_name=?, pay_tax=?, tax_free_name=?, tax_free_limit =?, tax_memo =?,"
+					+ "cut_unit=?, attend_conn=?, pay_cost =?, pay_used =? where pay_name =?")){
+				
+				pstmt.setString(1, pay.getPay_name());
+				pstmt.setString(2, pay.getPay_tax());
+				pstmt.setString(3, pay.getTax_free_name());
+				pstmt.setString(4, pay.getTax_free_limit());
+				pstmt.setString(5, pay.getTax_memo());
+				pstmt.setString(6, pay.getCut_unit());
+				pstmt.setString(7, pay.getAttend_conn());
+				pstmt.setString(8, pay.getPay_cost());
+				pstmt.setString(9, pay.getPay_used());
+				pstmt.setString(10, before_name);
+				
+				return pstmt.executeUpdate();
+			}
+		}
 	
 	private Payment_items convertPayment_items(ResultSet rs) throws SQLException {
 		return new Payment_items(

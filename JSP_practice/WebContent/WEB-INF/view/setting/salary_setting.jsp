@@ -86,8 +86,7 @@
 						<table border='1'>
 							<tr>
 								<td>지급항목</td>
-								<td><input type='text' name='pay_name'
-									value='${pay_picked.pay_name}'></td>
+								<td><input type='text' name='pay_name' value='${pay_picked.pay_name}'></td>
 							</tr>
 
 							<tr>
@@ -145,15 +144,14 @@
 						
 						<div style="display: flex; justify-content: flex-start; gap: 10px;">
 							<input type='submit' value='저장'>
+							<input type='hidden' name="before_name" value="${pay_picked.pay_name}">
+							<input type='submit' value='수정'>
 					</form>
 
 					<form action="delSal.do" method="post">
 						<input type='hidden' name="del_sal_name" value="${pay_picked.pay_name}"><input type='submit' value='삭제'>
 					</form>
-					<form action="delSal.do" method="post">
-						<input type='hidden' name="update_sal_name" value="${pay_picked.pay_name}"><input type='submit' value='수정'>
-					</form>
-					 <button type="reset">내용 지우기</button>
+					<button type="reset">내용 지우기</button>
 				</div>
 				</div> <br> <br> <br> <br> <br> <br> <br>
 				<br> <br> <br> <br> <br> <br>

@@ -14,6 +14,7 @@ import payded_items.model.Deduction_items;
 import payded_items.model.Payment_items;
 import payded_items.service.DeleteDedService;
 import payded_items.service.DeletePayService;
+import payded_items.service.ModifyPayService;
 import payded_items.service.SelectDeduction_itemsService;
 import payded_items.service.SelectPayment_itemsService;
 
@@ -25,6 +26,7 @@ public class DeletePayDedHandler implements CommandHandler {
 	private SelectAttend_itemsService selectAttService = new SelectAttend_itemsService();
 	private DeletePayService deletePayService = new DeletePayService();
 	private DeleteDedService deleteDedService = new DeleteDedService();	
+	private ModifyPayService modifyPayService = new ModifyPayService();
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -67,13 +69,6 @@ public class DeletePayDedHandler implements CommandHandler {
 				
 			}
 			
-			if(req.getParameter("update_sal_name") != null) {
-				
-				String name = req.getParameter("del_sal_name");
-				
-				//deletePayService.delete(name);
-				
-			}
 			
 			if(req.getParameter("del_ded_name") != null) {
 				
