@@ -28,7 +28,7 @@
 					<table width='100%'>
 						<tr>
 							<td><select name="searchCategori">
-									<option value="all" selected>전체</option>
+									<option value="all" selected>全体</option>
 									<option value="name_kor">名前</option>
 									<option value="emp_no">社員番号</option>
 									<option value="dept">部署</option>
@@ -36,23 +36,23 @@
 								<input type="submit" name="button" value="検索"> <input
 								type="submit" name="button" value="전체보기"> <spanstyle
 									="float:right;"> <select>
-									<option value="all" selected>고용형태별</option>
-									<option value="정규직">정규직</option>
-									<option value="계약직">계약직</option>
-									<option value="임시직">임시직</option>
-									<option value="파견직">파견직</option>
-									<option value="위촉직">위촉직</option>
-									<option value="일용직">일용직</option>
+									<option value="all" selected>雇用形態別</option>
+									<option value="정규직">正社員</option>
+									<option value="계약직">契約社員</option>
+									<option value="임시직">臨時社員</option>
+									<option value="파견직">派遣社員</option>
+									<option value="위촉직">委嘱社員</option>
+									<option value="일용직">日雇い社員</option>
 								</select> <select>
-									<option value="all">상태별</option>
-									<option value="on" selected>재직</option>
-									<option value="off">퇴직</option>
+									<option value="all">状態別</option>
+									<option value="on" selected>在職</option>
+									<option value="off">退職</option>
 								</select> <select>
-									<option value="all">리스트 수</option>
-									<option value="10">10개씩 보기</option>
-									<option value="30" selected>30개씩 보기</option>
-									<option value="50" selected>50개씩 보기</option>
-									<option value="100" selected>100개씩 보기</option>
+									<option value="all">リスト数</option>
+									<option value="10">10個ずつ</option>
+									<option value="30" selected>30個ずつ</option>
+									<option value="50" selected>50個ずつ</option>
+									<option value="100" selected>100個ずつ</option>
 								</select> </span></td>
 						</tr>
 						</form>
@@ -62,17 +62,17 @@
 									<tr align="center">
 
 										<td></td>
-										<td><strong>구분</strong></td>
-										<td><strong>입사일</strong></td>
-										<td><strong>사원번호</strong></td>
+										<td><strong>区分</strong></td>
+										<td><strong>入社日</strong></td>
+										<td><strong>社員番号</strong></td>
 										<td><strong>名前</strong></td>
 										<td><strong>部署</strong></td>
 										<td><strong>職位</strong></td>
-										<td><strong>주민번호</strong></td>
-										<td><strong>휴대폰</strong></td>
-										<td><strong>이메일</strong></td>
-										<td><strong>퇴사일</strong></td>
-										<td><strong>상태</strong></td>
+										<td><strong>住民番号</strong></td>
+										<td><strong>携帯</strong></td>
+										<td><strong>メール</strong></td>
+										<td><strong>退社日</strong></td>
+										<td><strong>状態</strong></td>
 									</tr>
 
 									<c:forEach var="empset" items="${list_empset}">
@@ -80,7 +80,7 @@
 										<tr>
 											<td><input type=hidden name="emp_search"
 												value="${empset.emp_no}"><input type=submit
-												value="상세보기"></td>
+												value="詳細"></td>
 											<td>${empset.emp_type}</td>
 											<td>${empset.hired_date}</td>
 											<td>${empset.emp_no}</td>

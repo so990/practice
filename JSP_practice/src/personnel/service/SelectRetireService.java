@@ -14,7 +14,7 @@ public class SelectRetireService {
 		try(Connection conn = ConnectionProvider.getConnection()) {
 			
 			//해당 bs_num의 객체를 받아옴
-			Retire retire = retireDao.selectByNo(conn, emp_no);			
+			Retire retire = retireDao.selectByNo(conn, emp_no);
 			return retire;
 			
 		}catch(SQLException e) {

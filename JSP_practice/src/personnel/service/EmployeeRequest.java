@@ -1,7 +1,6 @@
 package personnel.service;
 
 import java.sql.Date;
-import java.util.Map;
 
 public class EmployeeRequest {
 	private int emp_no;
@@ -124,11 +123,6 @@ public class EmployeeRequest {
 
 	public String getAccount() {
 		return account;
-	}
-
-	public void validate(Map<String, Boolean> errors) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	

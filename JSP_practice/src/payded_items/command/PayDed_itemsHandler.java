@@ -124,6 +124,17 @@ public class PayDed_itemsHandler implements CommandHandler {
 
 				Deduction_items deduction_items = insertDedService.insert(dedReq);
   			}
+			
+			if(req.getParameter("pay_name_picked") != null) {
+				
+				String name_picked = req.getParameter("pay_name_picked");
+				
+				Payment_items pay_picked = selectPayService.selectbyName(name_picked);
+				req.setAttribute("pay_picked", pay_picked);
+			
+			}
+			
+			//공제 이프문 들어갈 곳
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -138,7 +149,7 @@ public class PayDed_itemsHandler implements CommandHandler {
 		
 		List<Attend_items> list_att = selectAttService.select();
 		req.setAttribute("list_att", list_att);
-		return FORM_VIEW;	// 수정필요. 새창만들기? 리퀘스트에 올려서 팝업띄우기?
+		return FORM_VIEW;	
 		//newArticleSuccess 주소를 반환
 		
 	}

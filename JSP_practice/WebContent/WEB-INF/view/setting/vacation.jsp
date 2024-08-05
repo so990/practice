@@ -14,30 +14,13 @@
 <title>급여관리</title>
 
 <script>
-function openModal() {
-    document.getElementById('VacDaysModal').style.display = 'flex';
-}
-
-function closeModal() {
-    document.getElementById('VacDaysModal').style.display = 'none';
-}
-
-window.onload = function() {
-    var closeBtn = document.querySelector('.modal_close');
-    if (closeBtn) {
-        closeBtn.onclick = closeModal;
-    }
-    
-    var modal = document.getElementById('VacDaysModal');
-    if (modal) {
-        window.onclick = function(event) {
-            if (event.target === modal) {
-                closeModal();
-            }
+       
+        function selectCustomer(customerCode) {
+            window.opener.document.getElementById('vac_days').value = vac_days; 
+            window.close();
         }
-    }
-}
-</script>
+ </script>
+
 
 <style>
 .modal {
@@ -85,22 +68,23 @@ window.onload = function() {
 
 		<tr>
 			<td><br />
-			<h2>휴가항목 설정</h2>
+			<h2>休暇項目　設定</h2>
 				<br />
 				<div style="width: 51%; float: left;">
 					<table width=90% table border="1">
 						<tr>
-							<td>휴가항목</td>
-							<td>적용기간</td>
-							<td>사원별 휴가일수</td>
-							<td>사용여부</td>
+							<td>休暇項目</td>
+							<td>適用期間</td>
+							<td>社員別　休暇日数</td>
+							<td>使用可否</td>
 						</tr>
 
 						<c:forEach var="vac" items="${list_vac}">
 							<tr>
 								<td>${vac.vac_name}</td>
 								<td>${vac.vac_start}~${vac.vac_end}</td>
-								<td><button type="button" onclick="openModal()">휴가일수 관리</button></td>
+								<td> <button type="button" class="btn btn-outline-secondary"
+                     					onclick="window.open('att.do', '_blank', 'width=800,height=600');">休暇日数　管理</button></td>
 								<td>${vac.vac_used}</td>
 							</tr>
 						</c:forEach>
@@ -113,24 +97,24 @@ window.onload = function() {
 						<table width=90% border='1'>
 
 							<tr>
-								<td>휴가항목</td>
+								<td>休暇項目</td>
 								<td><input type='text' name='vac_name'
 									value='${vacation_items.vac_name }'></td>
 							</tr>
 							<tr>
-								<td>적용기간</td>
+								<td>適用期間</td>
 								<td colspan='3'><input type="date" name="vac_start"
 									value='${vacation_items.vac_start }'> ~ ~ <input
 									type="date" name="vac_end" value='${vacation_items.vac_end }'></td>
 							</tr>
 
 							<tr>
-								<td>사용여부</td>
+								<td>使用可否</td>
 								<td>
 									<form action method="get">
 										<input type="radio" name="vac_used" value="사용" checked>
-										사용<br> <input type="radio" name="vac_used" value="사용안함">
-										사용안함<br>
+										使用<br> <input type="radio" name="vac_used" value="사용안함">
+										使用しない<br>
 									</form>
 								</td>
 							</tr>
@@ -145,17 +129,17 @@ window.onload = function() {
 		<table width='100%' border='0'>
 			<tr>
 				<td><br />
-				<h2>근태항목 설정</h2>
+				<h2>勤怠項目　設定</h2>
 					<br />
 					<div style="width: 51%; float: left;">
 						<table width=90% table border="1">
 							<tr>
-								<td>근태항목</td>
-								<td>단위</td>
-								<td>그룹관리</td>
-								<td>휴가공제</td>
-								<td>근로시간연계</td>
-								<td>사용여부</td>
+								<td>勤怠項目</td>
+								<td>単位</td>
+								<td>グループ管理</td>
+								<td>休暇控除</td>
+								<td>勤労時間連携</td>
+								<td>使用可否</td>
 							</tr>
 
 							<c:forEach var="att" items="${list_att}">
@@ -178,36 +162,36 @@ window.onload = function() {
 							<table width=90% border='1'>
 
 								<tr>
-									<td>근태항목</td>
+									<td>勤怠項目</td>
 									<td><input type='text' name='att_name'
 										value='${attend_items.att_name }'></td>
 								</tr>
 
 								<tr>
-									<td>단위</td>
+									<td>単位</td>
 									<td><select name="att_unit">
-											<option value="선택하세요">선택하세요</option>
-											<option value="일">일</option>
-											<option value="시간">시간</option>
+											<option value="선택하세요">選択</option>
+											<option value="일">日</option>
+											<option value="시간">時間</option>
 									</select></td>
 								</tr>
 
 								<tr>
 									<td>근태그룹</td>
 									<td><select name="att_grp">
-											<option value="선택하세요">선택하세요</option>
-											<option value="휴가">휴가</option>
-											<option value="연장근무">연장근무</option>
-											<option value="지각조퇴">지각조퇴</option>
-											<option value="특근">특근</option>
-											<option value="기타">기타</option>
+											<option value="선택하세요">選択</option>
+											<option value="휴가">休暇</option>
+											<option value="연장근무">延長勤務</option>
+											<option value="지각조퇴">遅刻・早退/option>
+											<option value="특근">特勤</option>
+											<option value="기타">他</option>
 									</select></td>
 								</tr>
 
 								<tr>
 									<td>휴가공제</td>
 									<td><select name="att_deduction">
-											<option value="선택하세요">선택하세요</option>
+											<option value="선택하세요">選択</option>
 											<c:forEach var="vac" items="${list_vac}">
 												<option value="${vac.vac_name}">${vac.vac_name}</option>
 											</c:forEach>
@@ -257,7 +241,7 @@ window.onload = function() {
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="vacdays" items="${list_vac_days}">
+                <c:forEach var="vacdays" items="${list_vac_days}" varStatus="vs">
                     <tr>
                         <td>${vacdays.emp_type}</td>
                         <td>${vacdays.emp_no}</td>

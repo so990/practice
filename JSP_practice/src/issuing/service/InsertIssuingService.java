@@ -13,9 +13,11 @@ public class InsertIssuingService {
 	
 	public Issuing insert(IssuingRequest req) {
 		Connection conn = null;
+		
 		try {
 			conn = ConnectionProvider.getConnection();
 			//트랜잭션 시작
+		
 			conn.setAutoCommit(false);
 			
 			Issuing issuing = toIssuing(req);
@@ -42,6 +44,7 @@ public class InsertIssuingService {
 	
 	private Issuing toIssuing(IssuingRequest req) {
 		return new Issuing(
+				req.getEmp_no(),
 				req.getIsu_num(),
 				req.getIsu_led(),
 				req.getIsu_pur(),

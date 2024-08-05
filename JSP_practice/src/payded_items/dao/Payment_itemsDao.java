@@ -93,6 +93,15 @@ public class Payment_itemsDao {
 	            JdbcUtil.close(pstmt);
 	        }
 	    }
+	 
+	//지급항목 삭제
+	 public void delete (Connection conn, String name) throws SQLException{
+			try(PreparedStatement pstmt = conn.prepareStatement(
+					"delete from payment_items where pay_name =?")){
+				pstmt.setString(1, name);
+				pstmt.executeUpdate();
+			}
+		}
 	
 	private Payment_items convertPayment_items(ResultSet rs) throws SQLException {
 		return new Payment_items(

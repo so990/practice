@@ -23,4 +23,15 @@ public class SelectPayment_itemsService {
 		}
 	}
 
+	public Payment_items selectbyName(String name) {
+		try(Connection conn = ConnectionProvider.getConnection()) {
+
+			Payment_items payment_items = payment_itemsDao.selectByName(conn, name);
+			
+			return payment_items;
+
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

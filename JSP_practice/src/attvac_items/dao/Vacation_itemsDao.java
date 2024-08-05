@@ -87,6 +87,15 @@ public class Vacation_itemsDao {
 	            JdbcUtil.close(pstmt);
 	        }
 	    }
+	 
+	 //휴가항목 삭제
+	 public void delete (Connection conn, String name) throws SQLException{
+			try(PreparedStatement pstmt = conn.prepareStatement(
+					"delete from vacation_items where vac_name =?")){
+				pstmt.setString(1, name);
+				pstmt.executeUpdate();
+			}
+		}
 	
 	private Timestamp toTimestamp(Date date) {
 		return new Timestamp(date.getTime());

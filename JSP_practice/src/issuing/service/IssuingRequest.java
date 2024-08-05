@@ -4,17 +4,27 @@ import java.sql.Date;
 
 public class IssuingRequest {
 	
+	private int emp_no;
 	private int isu_num;
 	private String isu_led;
 	private String isu_pur;
 	private Date isu_date;
 	
-	public IssuingRequest(int isu_num, String isu_led, String isu_pur, Date isu_date) {
+	public IssuingRequest(int emp_no, int isu_num, String isu_led, String isu_pur, Date isu_date) {
 		super();
+		this.emp_no = emp_no;
 		this.isu_num = isu_num;
 		this.isu_led = isu_led;
 		this.isu_pur = isu_pur;
 		this.isu_date = isu_date;
+	}
+
+	public int getEmp_no() {
+		return emp_no;
+	}
+
+	public void setEmp_no(int emp_no) {
+		this.emp_no = emp_no;
 	}
 
 	public int getIsu_num() {
@@ -48,5 +58,6 @@ public class IssuingRequest {
 	public void setIsu_date(Date isu_date) {
 		this.isu_date = isu_date;
 	}
+	
 	
 }

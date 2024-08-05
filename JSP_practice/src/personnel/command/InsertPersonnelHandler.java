@@ -308,9 +308,9 @@ public class InsertPersonnelHandler implements CommandHandler {
 			e.printStackTrace();
 		}
 	}
-		System.out.println("0");
+		
 		if ((req.getParameter("emp_no")==null||req.getParameter("emp_no").isEmpty())&& req.getParameter("emp_search")!=null) {
-			System.out.println("1");
+		
 			try { 
 				
 				int emp_search = Integer.parseInt(req.getParameter("emp_search"));

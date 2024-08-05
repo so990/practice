@@ -66,9 +66,9 @@
 		<li><a href="#">人事管理</a>
 			<ul>
 				<li><a href="empSet.do">社員現況・管理</a></li>
-				<li><a href="#">人事記録カード</a></li>
-				<li><a href="#">諸証明書発給</a></li>
-				<li><a href="#">諸証明書発給台帳</a></li>
+				<li><a href="personCard.do">人事記録カード</a></li>
+				<li><a href="issuing.do">諸証明書発給</a></li>
+				<li><a href="issuingList.do">諸証明書発給台帳</a></li>
 			</ul>
 		</li>
 		<li><a href="#">勤怠管理</a>

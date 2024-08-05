@@ -63,6 +63,7 @@
 							<th>절사단위</th>
 							<th>근태연결/일괄지급</th>
 							<th>사용여부</th>
+							<th></th>
 						</tr>
 						<c:forEach var="pay" items="${list_pay}">
 							<tr>
@@ -72,6 +73,9 @@
 								<td>${pay.cut_unit}</td>
 								<td>${pay.attend_conn}</td>
 								<td>${pay.pay_used}</td>
+						<form action="salitems.do" method="post">
+								<td><input type="hidden" name="pay_name_picked" value="${pay.pay_name}"><input type='submit' value="選択"></td>
+						</form>
 							</tr>
 						</c:forEach>
 					</table>
@@ -82,7 +86,7 @@
 							<tr>
 								<td>지급항목</td>
 								<td><input type='text' name='pay_name'
-									value='${payment_items.pay_name }'>&nbsp&nbsp&nbsp&nbsp</td>
+									value='${pay_picked.pay_name}'>&nbsp&nbsp&nbsp&nbsp</td>
 							</tr>
 
 							<tr>
@@ -104,7 +108,7 @@
 							<tr>
 								<td>계산방법</td>
 								<td><input type='text' name='tax_memo'
-									value='${payment_items.tax_memo }'></td>
+									value='${pay_picked.tax_memo}'></td>
 							</tr>
 
 							<tr>
@@ -123,6 +127,7 @@
 										<c:forEach var="att" items="${list_att}">
 											<option value="${att.att_name}">${att.att_name}</option>
 										</c:forEach>
+										<option value="일괄지급">일괄지급</option>
 								</select></td>
 							</tr>
 							<tr>
@@ -133,7 +138,15 @@
 							</tr>
 						</table>
 						<input type='submit' value='저장'>
+					</form>	
+					
+					<form action="delSal.do" method="post">
+						<input type='hidden' name="del_sal_name" value="${pay_picked.pay_name}"><input type='submit' value='삭제'>
 					</form>
+					<form action="delSal.do" method="post">
+						<input type='hidden' name="update_sal_name" value="${pay_picked.pay_name}"><input type='submit' value='수정'>
+					</form>
+					
 				</div>
 				</div> <br> <br> <br> <br> <br> <br> <br>
 				<br> <br> <br> <br> <br> <br>
