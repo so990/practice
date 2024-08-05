@@ -52,8 +52,7 @@
 		</tr>
 		<tr>
 			<td><br />
-			<h3>지급항목 설정</h3>
-				<br />
+				<h3>지급항목 설정</h3> <br />
 				<div style="width: 51%; float: left;">
 					<table width=90% table border="1">
 						<tr>
@@ -73,9 +72,11 @@
 								<td>${pay.cut_unit}</td>
 								<td>${pay.attend_conn}</td>
 								<td>${pay.pay_used}</td>
-						<form action="salitems.do" method="post">
-								<td><input type="hidden" name="pay_name_picked" value="${pay.pay_name}"><input type='submit' value="選択"></td>
-						</form>
+								<form action="salitems.do" method="post">
+									<td><input type="hidden" name="pay_name_picked"
+										value="${pay.pay_name}"><input type='submit'
+										value="選択"></td>
+								</form>
 							</tr>
 						</c:forEach>
 					</table>
@@ -86,24 +87,25 @@
 							<tr>
 								<td>지급항목</td>
 								<td><input type='text' name='pay_name'
-									value='${pay_picked.pay_name}'>&nbsp&nbsp&nbsp&nbsp</td>
+									value='${pay_picked.pay_name}'></td>
 							</tr>
 
 							<tr>
 								<td>과세여부</td>
-								<td colspan='3'><input type="radio" name="pay_tax"
-									value="전체과세" checked> 전체과세<br> <input type="radio"
-									name="pay_tax" value="비과세"> 비과세<br></td>
+								<td colspan='3'>
+								<input type="radio" name="pay_tax" value="전체과세" ${pay_picked.pay_tax == '전체과세' ? 'checked' : ''} checked> 전체과세<br> 
+								<input type="radio"name="pay_tax" value="비과세" ${pay_picked.pay_tax == '비과세' ? 'checked' : ''}> 비과세<br>
+								</td>
 							</tr>
 							<tr class="tax-free-field">
 								<td>비과세명</td>
 								<td><input type='text' name='tax_free_name'
-									value='${payment_items.tax_free_name }'></td>
+									value='${pay_picked.tax_free_name }'></td>
 							</tr>
 							<tr class="tax-free-field">
 								<td>비과세 한도액</td>
 								<td><input type='text' name='tax_free_limit'
-									value='${payment_items.tax_free_limit }'>원</td>
+									value='${pay_picked.tax_free_limit }'>원</td>
 							</tr>
 							<tr>
 								<td>계산방법</td>
@@ -114,10 +116,10 @@
 							<tr>
 								<td>절사단위</td>
 								<td><select name="cut_unit">
-										<option value="없음">없음</option>
-										<option value="1">1원 단위</option>
-										<option value="10">10원 단위</option>
-										<option value="100">100원 단위</option>
+										<option value="없음" ${pay_picked.cut_unit == '없음' ? 'selected' : ''}>없음</option>
+										<option value="1" ${pay_picked.cut_unit == '1' ? 'selected' : ''}>1원 단위</option>
+										<option value="10" ${pay_picked.cut_unit == '10' ? 'selected' : ''}>10원 단위</option>
+										<option value="100" ${pay_picked.cut_unit == '100' ? 'selected' : ''}>100원 단위</option>
 								</select></td>
 							</tr>
 							<tr>
@@ -125,28 +127,33 @@
 								<td><select name="attend_conn">
 										<option value="선택하세요">선택하세요</option>
 										<c:forEach var="att" items="${list_att}">
-											<option value="${att.att_name}">${att.att_name}</option>
+											<option value="${att.att_name}" ${pay_picked.attend_conn == att.att_name ? 'selected' : ''}>${att.att_name}</option>
 										</c:forEach>
-										<option value="일괄지급">일괄지급</option>
+										<option value="일괄지급" ${pay_picked.attend_conn == '일괄지급' ? 'selected' : ''}>일괄지급</option>
 								</select></td>
 							</tr>
 							<tr>
 								<td>사용여부</td>
-								<td><input type="radio" name="pay_used" value="사용" checked>
-									사용<br> <input type="radio" name="pay_used" value="사용안함">
-									사용안함<br></td>
+								    <td>
+								        <input type="radio" name="pay_used" value="사용" 
+								               ${pay_picked.pay_used == '사용' ? 'checked' : ''}> 사용<br> 
+								        <input type="radio" name="pay_used" value="사용안함" 
+								               ${pay_picked.pay_used == '사용안함' ? 'checked' : ''}> 사용안함<br>
+								    </td>
 							</tr>
 						</table>
-						<input type='submit' value='저장'>
-					</form>	
-					
+						
+						<div style="display: flex; justify-content: flex-start; gap: 10px;">
+							<input type='submit' value='저장'>
+					</form>
+
 					<form action="delSal.do" method="post">
 						<input type='hidden' name="del_sal_name" value="${pay_picked.pay_name}"><input type='submit' value='삭제'>
 					</form>
 					<form action="delSal.do" method="post">
 						<input type='hidden' name="update_sal_name" value="${pay_picked.pay_name}"><input type='submit' value='수정'>
 					</form>
-					
+					 <button type="reset">내용 지우기</button>
 				</div>
 				</div> <br> <br> <br> <br> <br> <br> <br>
 				<br> <br> <br> <br> <br> <br>
@@ -155,8 +162,7 @@
 						<br>
 						<br>
 						<td><br>
-							<h3>공제항목 설정</h3>
-							<br>
+							<h3>공제항목 설정</h3> <br>
 							<div style="width: 51%; float: left;">
 								<table width=90% table border="1">
 									<tr>
@@ -164,6 +170,7 @@
 										<th>절사단위</th>
 										<th>사용여부</th>
 										<th>비고</th>
+										<th></th>
 									</tr>
 									<c:forEach var="ded" items="${list_ded}">
 										<tr>
@@ -171,6 +178,9 @@
 											<td>${ded.ded_cut_unit}</td>
 											<td>${ded.ded_used}</td>
 											<td>${ded.ded_note}</td>
+											<form action="salitems.do" method="post">
+												<td><input type="hidden" name="ded_name_picked" value="${ded.ded_name}"><input type='submit' value="選択"></td>
+											</form>
 										</tr>
 									</c:forEach>
 								</table>
@@ -181,42 +191,54 @@
 										<tr>
 											<td>공제항목</td>
 											<td><input type='text' name='ded_name'
-												value='${deduction_items.ded_name }'></td>
+												value='${ded_picked.ded_name }'></td>
 										</tr>
 
 										<tr>
 											<td>계산방법</td>
 											<td><input type='text' name='ded_memo'
-												value='${deduction_items.ded_memo }'></td>
+												value='${ded_picked.ded_memo }'></td>
 										</tr>
 
 										<tr>
 											<td>절사단위</td>
 											<td><select name="ded_cut_unit">
-													<option value="없음">없음</option>
-													<option value="1">1원 단위</option>
-													<option value="10">10원 단위</option>
-													<option value="100">100원 단위</option>
+													<option value="없음" ${ded_picked.ded_cut_unit == '없음' ? 'selected' : ''}>없음</option>
+													<option value="1" ${ded_picked.ded_cut_unit == '1' ? 'selected' : ''}>1원 단위</option>
+													<option value="10" ${ded_picked.ded_cut_unit == '10' ? 'selected' : ''}>10원 단위</option>
+													<option value="100" ${ded_picked.ded_cut_unit == '100' ? 'selected' : ''}>100원 단위</option>
 											</select></td>
 										</tr>
 
 										<tr>
 											<td>비고</td>
-											<td><input type='text' name='ded_note'
-												value='${deduction_items.ded_note }'></td>
+											<td><input type='text' name='ded_note' value='${ded_picked.ded_note }'></td>
 										</tr>
 
 										<tr>
 											<td>사용여부</td>
-											<td><input type="radio" name="ded_used" value="사용"
-												checked> 사용<br> <input type="radio"
-												name="ded_used" value="사용안함"> 사용안함<br></td>
+											<td><input type="radio" name="ded_used" value="사용" ${ded_picked.ded_used == '사용' ? 'checked' : ''} checked> 사용<br> 
+											<input type="radio" name="ded_used" value="사용안함" ${ded_picked.ded_used == '사용안함' ? 'checked' : ''}> 사용안함<br></td>
 										</tr>
 
 									</table>
-									<input type='submit' value='저장'>
+									<div style="display: flex; justify-content: flex-start; gap: 10px;">
+										<input type='submit' value='저장'>
 								</form>
-							</div>
-							</div>
+
+								<form action="delSal.do" method="post">
+									<input type='hidden' name="del_ded_name" value="${ded_picked.ded_name}">
+									<input type='submit' value='삭제'>
+								</form>
+								<form action="delSal.do" method="post">
+									<input type='hidden' name="update_ded_name" value="${ded_picked.ded_name}">
+									<input type='submit' value='수정'>
+								</form>
+								 <button type="reset">내용 지우기</button>
+							</div></td>
+					</tr>
+				</table></td>
+		</tr>
+	</table>
 </body>
 </html>

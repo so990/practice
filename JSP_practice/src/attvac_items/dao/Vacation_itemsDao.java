@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import attvac_items.model.Vacation_days;
 import attvac_items.model.Vacation_days_setting;
 import attvac_items.model.Vacation_items;
 import jdbc.JdbcUtil;
+import payded_items.model.Deduction_items;
 
 public class Vacation_itemsDao {
 	
@@ -69,13 +69,31 @@ public class Vacation_itemsDao {
 	        }
 	    }
 	 
+	 public Vacation_items selectByName(Connection conn, String name) throws SQLException {
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      try {
+	         pstmt=conn.prepareStatement("select*from vacation_items where vac_name=?");
+	         pstmt.setString(1, name);
+	         rs = pstmt.executeQuery();
+	         Vacation_items vacation_items = null;
+	         if(rs.next()) {
+	        	 vacation_items = convertVacation_items(rs);
+	         }
+	         return vacation_items;
+	      } finally {
+	         JdbcUtil.close(rs);
+	         JdbcUtil.close(pstmt);
+	      }
+	   }
+	 
 	 
 	 //모달창 구현 join
 	 public List<Vacation_days_setting> selectModal(Connection conn) throws SQLException {
 	        PreparedStatement pstmt = null;
 	        ResultSet rs = null;
 	        try {
-	            pstmt = conn.prepareStatement("SELECT e.emp_type, e.emp_no, e.name_kor, e.dept, e.job, e.hired_date, vd.has_vac_days FROM employee e JOIN vacation_days vd ON e.emp_no = vd.emp_no ORDER BY e.dept ASC");
+	            pstmt = conn.prepareStatement("SELECT e.emp_type, e.emp_no, e.name_kor, e.dept, e.job, e.hired_date, vd.has_vac_days FROM employee e LEFT OUTER JOIN vacation_days vd ON e.emp_no = vd.emp_no ORDER BY e.dept ASC");
 	            rs = pstmt.executeQuery();
 	            List<Vacation_days_setting> result = new ArrayList<>();
 	            while (rs.next()) {

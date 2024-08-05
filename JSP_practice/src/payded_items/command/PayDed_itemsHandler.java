@@ -135,6 +135,14 @@ public class PayDed_itemsHandler implements CommandHandler {
 			}
 			
 			//공제 이프문 들어갈 곳
+			if(req.getParameter("ded_name_picked") != null) {
+				
+				String name_picked = req.getParameter("ded_name_picked");
+				
+				Deduction_items ded_picked = selectDedService.selectbyName(name_picked);
+				req.setAttribute("ded_picked", ded_picked);
+			
+			}
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

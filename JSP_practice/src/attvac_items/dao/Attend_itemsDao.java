@@ -87,6 +87,14 @@ public class Attend_itemsDao {
 	            JdbcUtil.close(pstmt);
 	        }
 	    }
+	 
+	 public void delete (Connection conn, String name) throws SQLException{
+			try(PreparedStatement pstmt = conn.prepareStatement(
+					"delete from attend_items where att_name =?")){
+				pstmt.setString(1, name);
+				pstmt.executeUpdate();
+			}
+		}
 	
 	private Attend_items convertAttend_items(ResultSet rs) throws SQLException {
 		return new Attend_items(

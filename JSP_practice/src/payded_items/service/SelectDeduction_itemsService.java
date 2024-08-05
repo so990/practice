@@ -24,4 +24,15 @@ public class SelectDeduction_itemsService {
 		}
 	}
 
+	public Deduction_items selectbyName(String name) {
+		try(Connection conn = ConnectionProvider.getConnection()) {
+
+			Deduction_items deduction_items = deduction_itemsDao.selectByName(conn, name);
+			
+			return deduction_items;
+
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

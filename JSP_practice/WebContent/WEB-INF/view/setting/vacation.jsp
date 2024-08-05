@@ -21,39 +21,6 @@
         }
  </script>
 
-
-<style>
-.modal {
-    position: absolute;
-    display: none;
-    justify-content: center;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal_body {
-    position: absolute;
-    top: 50%;
-    width: 600px; /* Increased width for better visibility */
-    height: 400px; /* Increased height for better visibility */
-    padding: 20px;
-    background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-    transform: translateY(-50%);
-    overflow: auto; /* Added for scrollable content */
-}
-
-.modal_close {
-    cursor: pointer;
-    float: right;
-    font-size: 24px;
-    font-weight: bold;
-}
-</style>
 </head>
 <body>
 	<table width='100%' border='0'>
@@ -77,15 +44,20 @@
 							<td>適用期間</td>
 							<td>社員別　休暇日数</td>
 							<td>使用可否</td>
+							<td></td>
 						</tr>
 
 						<c:forEach var="vac" items="${list_vac}">
 							<tr>
 								<td>${vac.vac_name}</td>
 								<td>${vac.vac_start}~${vac.vac_end}</td>
-								<td> <button type="button" class="btn btn-outline-secondary"
-                     					onclick="window.open('att.do', '_blank', 'width=800,height=600');">休暇日数　管理</button></td>
+								<td> <button type="button" class="btn btn-outline-secondary" onclick="window.open('vacDays.do', '_blank', 'width=800,height=800');">休暇日数　管理</button></td>
 								<td>${vac.vac_used}</td>
+								<form action="att.do" method="post">
+									<td><input type="hidden" name="vac_name_picked"
+										value="${vac.vac_name}"><input type='submit'
+										value="選択"></td>
+										</form>
 							</tr>
 						</c:forEach>
 
@@ -99,28 +71,37 @@
 							<tr>
 								<td>休暇項目</td>
 								<td><input type='text' name='vac_name'
-									value='${vacation_items.vac_name }'></td>
+									value='${vac_picked.vac_name }'></td>
 							</tr>
 							<tr>
 								<td>適用期間</td>
 								<td colspan='3'><input type="date" name="vac_start"
-									value='${vacation_items.vac_start }'> ~ ~ <input
-									type="date" name="vac_end" value='${vacation_items.vac_end }'></td>
+									value='${vac_picked.vac_start }'> ~  <input
+									type="date" name="vac_end" value='${vac_picked.vac_end }'></td>
 							</tr>
 
 							<tr>
 								<td>使用可否</td>
 								<td>
 									<form action method="get">
-										<input type="radio" name="vac_used" value="사용" checked>
-										使用<br> <input type="radio" name="vac_used" value="사용안함">
+										<input type="radio" name="vac_used" value="사용" ${vac_picked.vac_used == '사용' ? 'checked' : ''} checked>
+										使用<br> <input type="radio" name="vac_used" value="사용안함" ${vac_picked.vac_used == '사용안함' ? 'checked' : ''}>
 										使用しない<br>
 									</form>
 								</td>
 							</tr>
 						</table>
-						<br /> <input type='submit' value='저장'>
+						<div style="display: flex; justify-content: flex-start; gap: 10px;">
+							<input type='submit' value='저장'>
 					</form>
+
+					<form action="delVac.do" method="post">
+						<input type='hidden' name="del_vac_name" value="${vac_picked.vac_name}"><input type='submit' value='삭제'>
+					</form>
+					<form action="delVac.do" method="post">
+						<input type='hidden' name="update_vac_name" value="${vac_picked.vac_name}"><input type='submit' value='수정'>
+					</form>
+					 <button type="reset">내용 지우기</button>
 				</div></td>
 		</tr>
 		<!-- --------------------------------------------------------------------------------------
@@ -140,6 +121,7 @@
 								<td>休暇控除</td>
 								<td>勤労時間連携</td>
 								<td>使用可否</td>
+								<td></td>
 							</tr>
 
 							<c:forEach var="att" items="${list_att}">
@@ -150,6 +132,10 @@
 									<td>${att.att_deduction}</td>
 									<td>${att.att_conn}</td>
 									<td>${att.att_used}</td>
+									<form action="att.do" method="post">
+												<td><input type="hidden" name="att_name_picked" value="${att.att_name}"><input type='submit' value="選択"></td>
+											</form>
+											
 								</tr>
 							</c:forEach>
 
@@ -164,36 +150,36 @@
 								<tr>
 									<td>勤怠項目</td>
 									<td><input type='text' name='att_name'
-										value='${attend_items.att_name }'></td>
+										value='${att_picked.att_name }'></td>
 								</tr>
 
 								<tr>
 									<td>単位</td>
 									<td><select name="att_unit">
-											<option value="선택하세요">選択</option>
-											<option value="일">日</option>
-											<option value="시간">時間</option>
+											<option value="선택하세요" ${att_picked.att_unit == '선택하세요' ? 'selected' : ''}>選択</option>
+											<option value="일" ${att_picked.att_unit == '일' ? 'selected' : ''}>日</option>
+											<option value="시간" ${att_picked.att_unit == '시간' ? 'selected' : ''}>時間</option>
 									</select></td>
 								</tr>
 
 								<tr>
 									<td>근태그룹</td>
 									<td><select name="att_grp">
-											<option value="선택하세요">選択</option>
-											<option value="휴가">休暇</option>
-											<option value="연장근무">延長勤務</option>
-											<option value="지각조퇴">遅刻・早退/option>
-											<option value="특근">特勤</option>
-											<option value="기타">他</option>
+											<option value="선택하세요" ${att_picked.att_grp == '선택하세요' ? 'selected' : ''}>選択</option>
+											<option value="휴가" ${att_picked.att_grp == '휴가' ? 'selected' : ''}>休暇</option>
+											<option value="연장근무" ${att_picked.att_grp == '연장근무' ? 'selected' : ''}>延長勤務</option>
+											<option value="지각조퇴" ${att_picked.att_grp == '지각조퇴' ? 'selected' : ''}>遅刻・早退</option>
+											<option value="특근" ${att_picked.att_grp == '특근' ? 'selected' : ''}>特勤</option>
+											<option value="기타" ${att_picked.att_grp == '기타' ? 'selected' : ''}>他</option>
 									</select></td>
 								</tr>
 
 								<tr>
 									<td>휴가공제</td>
 									<td><select name="att_deduction">
-											<option value="선택하세요">選択</option>
+											<option value="선택하세요" ${att_picked.att_deduction == '선택하세요' ? 'selected' : ''}>選択</option>
 											<c:forEach var="vac" items="${list_vac}">
-												<option value="${vac.vac_name}">${vac.vac_name}</option>
+												<option value="${vac.vac_name}" ${att_picked.att_deduction == vac.vac_name ? 'selected' : ''}>${vac.vac_name}</option>
 											</c:forEach>
 									</select></td>
 								</tr>
@@ -201,11 +187,11 @@
 								<tr>
 									<td>근로시간연계</td>
 									<td><select name="att_conn">
-											<option value="선택하세요">선택하세요</option>
-											<option value="소정근로">소정근로</option>
-											<option value="연장근로">연장근로</option>
-											<option value="야간근로">야간근로</option>
-											<option value="휴일근로">휴일근로</option>
+											<option value="선택하세요" ${att_picked.att_conn == '선택하세요' ? 'selected' : ''}>선택하세요</option>
+											<option value="소정근로" ${att_picked.att_conn == '소정근로' ? 'selected' : ''}>소정근로</option>
+											<option value="연장근로" ${att_picked.att_conn == '연장근로' ? 'selected' : ''}>연장근로</option>
+											<option value="야간근로" ${att_picked.att_conn == '야간근로' ? 'selected' : ''}>야간근로</option>
+											<option value="휴일근로" ${att_picked.att_conn == '휴일근로' ? 'selected' : ''}>휴일근로</option>
 									</select></td>
 								</tr>
 
@@ -213,48 +199,25 @@
 									<td>사용여부</td>
 									<td>
 										<form action method="get">
-											<input type="radio" name="att_used" value="사용" checked>
-											사용<br> <input type="radio" name="att_used" value="사용안함">
+											<input type="radio" name="att_used" value="사용" ${att_picked.att_used == '사용' ? 'checked' : ''} checked>
+											사용<br> <input type="radio" name="att_used" value="사용안함" ${att_picked.att_used == '사용안함' ? 'checked' : ''}>
 											사용안함<br>
 										</form>
 									</td>
 							</table>
-							<br /> <input type='submit' value='저장'>
-						</form>
+									<div style="display: flex; justify-content: flex-start; gap: 10px;">
+										<input type='submit' value='저장'>
+								</form>
+
+								<form action="delVac.do" method="post">
+									<input type='hidden' name="del_att_name" value="${att_picked.att_name}">
+									<input type='submit' value='삭제'>
+								</form>
+								<form action="delVac.do" method="post">
+									<input type='hidden' name="update_att_name" value="${att_picked.att_name}">
+									<input type='submit' value='수정'>
+								</form>
+								 <button type="reset">내용 지우기</button>
 					</div>  
-					
-<!-- 휴가일수 설정 처리 모달 -->
-<div class="modal" id="VacDaysModal">
-    <div class="modal_body">
-        <span class="modal_close">&times;</span>
-        <h2>휴가일수 설정</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>구분</th>
-                    <th>사원번호</th>
-                    <th>성명</th>
-                    <th>부서</th>
-                    <th>직위</th>
-                    <th>입사일</th>
-                    <th>휴가일수</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="vacdays" items="${list_vac_days}" varStatus="vs">
-                    <tr>
-                        <td>${vacdays.emp_type}</td>
-                        <td>${vacdays.emp_no}</td>
-                        <td>${vacdays.name_kor}</td>
-                        <td>${vacdays.dept}</td>
-                        <td>${vacdays.job}</td>
-                        <td>${vacdays.hired_date}</td>
-                        <td>${vacdays.vac_days}</td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </div>
-</div>
     </body>
 </html>

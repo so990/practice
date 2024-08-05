@@ -38,9 +38,10 @@ public class VacDays_settingHandler implements CommandHandler {
 
 		List<Vacation_days_setting> list_vac_days = selectVacService.selectM();
 		req.setAttribute("list_vac_days", list_vac_days);
+		
+		System.out.println(list_vac_days.get(0).getEmp_no());
 
-		req.getRequestDispatcher("/WEB-INF/view/setting/vacation.jsp").forward(req, res);
-		return null;
+		return "/WEB-INF/view/setting/vac_days_setting.jsp";
 	}
 
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
@@ -74,7 +75,7 @@ public class VacDays_settingHandler implements CommandHandler {
 					List<Vacation_days_setting> list_vac_days = selectVacService.selectM();
 					req.setAttribute("list_vac_days", list_vac_days);
 					
-					return null;
+					return "/WEB-INF/view/setting/vac_days_setting.jsp";
 				}
 				
 				List<Vacation_days_setting> vacation_days_setting = selectVacService.selectM();
@@ -89,7 +90,7 @@ public class VacDays_settingHandler implements CommandHandler {
 		req.setAttribute("list_vac_days", list_vac_days);
 		
 		
-		return null;	// 수정필요. 새창만들기? 리퀘스트에 올려서 팝업띄우기?
+		return "/WEB-INF/view/setting/vac_days_setting.jsp";	// 수정필요. 새창만들기? 리퀘스트에 올려서 팝업띄우기?
 		//newArticleSuccess 주소를 반환		
 	}
 }

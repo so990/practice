@@ -8,6 +8,7 @@ import attvac_items.dao.Vacation_itemsDao;
 import attvac_items.model.Vacation_days_setting;
 import attvac_items.model.Vacation_items;
 import jdbc.connection.ConnectionProvider;
+import payded_items.model.Deduction_items;
 
 
 public class SelectVacation_itemsService {
@@ -32,6 +33,18 @@ public class SelectVacation_itemsService {
 			List<Vacation_days_setting> vacation_days_setting = vacation_itemsDao.selectModal(conn);	
 			
 			return vacation_days_setting;
+
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public Vacation_items selectbyName(String name) {
+		try(Connection conn = ConnectionProvider.getConnection()) {
+
+			Vacation_items vacation_items = vacation_itemsDao.selectByName(conn, name);
+			
+			return vacation_items;
 
 		}catch(SQLException e) {
 			throw new RuntimeException(e);

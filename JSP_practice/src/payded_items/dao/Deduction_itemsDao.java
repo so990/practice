@@ -88,6 +88,15 @@ public class Deduction_itemsDao {
 	            JdbcUtil.close(pstmt);
 	        }
 	    }
+	 
+	//공제항목 삭제
+	 public void delete (Connection conn, String name) throws SQLException{
+			try(PreparedStatement pstmt = conn.prepareStatement(
+					"delete from deduction_items where ded_name =?")){
+				pstmt.setString(1, name);
+				pstmt.executeUpdate();
+			}
+		}
 	
 	private Deduction_items convertDeduction_items(ResultSet rs) throws SQLException {
 		return new Deduction_items(

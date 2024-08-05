@@ -1,4 +1,4 @@
-package payded_items.command;
+package attvac_items.command;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,23 +8,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import attvac_items.model.Attend_items;
+import attvac_items.model.Vacation_items;
+import attvac_items.service.DeleteAttService;
+import attvac_items.service.DeleteVacService;
 import attvac_items.service.SelectAttend_itemsService;
+import attvac_items.service.SelectVacation_itemsService;
 import mvc.command.CommandHandler;
 import payded_items.model.Deduction_items;
 import payded_items.model.Payment_items;
-import payded_items.service.DeleteDedService;
-import payded_items.service.DeletePayService;
-import payded_items.service.SelectDeduction_itemsService;
-import payded_items.service.SelectPayment_itemsService;
 
-public class DeletePayDedHandler implements CommandHandler {
-	private static final String FORM_VIEW = "/WEB-INF/view/setting/salary_setting.jsp";
+public class DeleteAttVavHandler implements CommandHandler {
+	private static final String FORM_VIEW = "/WEB-INF/view/setting/vacation.jsp";
 
-	private SelectPayment_itemsService selectPayService = new SelectPayment_itemsService();
-	private SelectDeduction_itemsService selectDedService = new SelectDeduction_itemsService();
 	private SelectAttend_itemsService selectAttService = new SelectAttend_itemsService();
-	private DeletePayService deletePayService = new DeletePayService();
-	private DeleteDedService deleteDedService = new DeleteDedService();	
+	private SelectVacation_itemsService selectVacService = new SelectVacation_itemsService();
+	private DeleteAttService deleteAttService = new DeleteAttService();
+	private DeleteVacService deleteVacService = new DeleteVacService();	
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -39,15 +38,12 @@ public class DeletePayDedHandler implements CommandHandler {
 	}
 
 	private String processForm(HttpServletRequest req, HttpServletResponse res) {
-
-		List<Payment_items> list_pay = selectPayService.select();
-		req.setAttribute("list_pay", list_pay);
-
-		List<Deduction_items> list_ded = selectDedService.select();
-		req.setAttribute("list_ded", list_ded);
 		
 		List<Attend_items> list_att = selectAttService.select();
 		req.setAttribute("list_att", list_att);
+		
+		List<Vacation_items> list_vac = selectVacService.select();
+		req.setAttribute("list_vac", list_vac);
 
 		return FORM_VIEW;
 	}
@@ -59,11 +55,11 @@ public class DeletePayDedHandler implements CommandHandler {
 		
 		try { 
 			
-			if(req.getParameter("del_sal_name") != null) {
+			if(req.getParameter("del_att_name") != null) {
 				
-				String name = req.getParameter("del_sal_name");
+				String name = req.getParameter("del_att_name");
 				
-				deletePayService.delete(name);
+				deleteAttService.delete(name);
 				
 			}
 			
@@ -75,11 +71,11 @@ public class DeletePayDedHandler implements CommandHandler {
 				
 			}
 			
-			if(req.getParameter("del_ded_name") != null) {
+			if(req.getParameter("del_vac_name") != null) {
 				
-				String name = req.getParameter("del_ded_name");
+				String name = req.getParameter("del_vac_name");
 				
-				deleteDedService.delete(name);
+				deleteVacService.delete(name);
 				
 			}
 			
@@ -88,14 +84,12 @@ public class DeletePayDedHandler implements CommandHandler {
 			e.printStackTrace();
 		}
 		
-		List<Payment_items> list_pay = selectPayService.select();
-		req.setAttribute("list_pay", list_pay);
-		
-		List<Deduction_items> list_ded = selectDedService.select();
-		req.setAttribute("list_ded", list_ded);
-		
 		List<Attend_items> list_att = selectAttService.select();
 		req.setAttribute("list_att", list_att);
+		
+		List<Vacation_items> list_vac = selectVacService.select();
+		req.setAttribute("list_vac", list_vac);
+		
 		return FORM_VIEW;	
 		//newArticleSuccess 주소를 반환
 		

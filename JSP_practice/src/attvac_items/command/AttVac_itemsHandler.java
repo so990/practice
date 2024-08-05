@@ -19,6 +19,7 @@ import attvac_items.service.SelectAttend_itemsService;
 import attvac_items.service.SelectVacation_itemsService;
 import attvac_items.service.Vacation_itemsRequest;
 import mvc.command.CommandHandler;
+import payded_items.model.Payment_items;
 
 public class AttVac_itemsHandler implements CommandHandler {
 	private static final String FORM_VIEW = "/WEB-INF/view/setting/vacation.jsp";
@@ -128,6 +129,24 @@ public class AttVac_itemsHandler implements CommandHandler {
 				Attend_items attend_items = insertAttService.insert(attReq);  
 
 			}
+				if(req.getParameter("vac_name_picked") != null) {
+				
+					String name_picked = req.getParameter("vac_name_picked");
+					
+					Vacation_items vac_picked = selectVacService.selectbyName(name_picked);
+					req.setAttribute("vac_picked", vac_picked);
+			
+			}
+				//근태 이프문 들어갈 곳
+				if(req.getParameter("att_name_picked") != null) {
+					
+					String name_picked = req.getParameter("att_name_picked");
+					
+					Attend_items att_picked = selectAttService.selectbyName(name_picked);
+					req.setAttribute("att_picked", att_picked);
+			
+			}
+				
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
