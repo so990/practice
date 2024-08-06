@@ -24,8 +24,8 @@
 				</td>
 			</tr>
 			<tr>
-				<td align='center'>
-				여기에 작성
+				<td align='left'>
+					<%@ include file="Site_footer.jsp" %>
 				</td>
 			</tr>
 

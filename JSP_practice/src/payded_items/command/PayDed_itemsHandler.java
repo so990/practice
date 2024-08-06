@@ -170,8 +170,6 @@ public class PayDed_itemsHandler implements CommandHandler {
 			// 공제항목 수정
 			if (req.getParameter("ded_button") != null) {
 				if (req.getParameter("ded_button").equals("修正")) {
-					
-					System.out.println("수정");
 
 					String before_name = req.getParameter("ded_before_name");
 

@@ -24,6 +24,7 @@
 					<%@ include file="/../../../Site_menu.jsp" %>
 				</td>
 			</tr>
+			
 			<tr>
 				<td align='left'>
 				<h2>사원등록</h2>
@@ -419,5 +420,10 @@
          </td></tr>
       </table>
       <br/><br/><br/><br/>
+      <tr>
+				<td align='left'>
+					<%@ include file="/../../../Site_footer.jsp" %>
+				</td>
+			</tr>
    </body>
 </html>
