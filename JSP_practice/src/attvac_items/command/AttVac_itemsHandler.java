@@ -10,11 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import attvac_items.model.Attend_items;
-import attvac_items.model.Vacation_days_setting;
 import attvac_items.model.Vacation_items;
 import attvac_items.service.Attend_itemsRequest;
 import attvac_items.service.InsertAttend_itemsService;
 import attvac_items.service.InsertVacation_itemsService;
+import attvac_items.service.ModifyAttService;
+import attvac_items.service.ModifyVacService;
 import attvac_items.service.SelectAttend_itemsService;
 import attvac_items.service.SelectVacation_itemsService;
 import attvac_items.service.Vacation_itemsRequest;
@@ -28,7 +29,10 @@ public class AttVac_itemsHandler implements CommandHandler {
 	private SelectAttend_itemsService selectAttService = new SelectAttend_itemsService();
 	private InsertVacation_itemsService insertVacService = new InsertVacation_itemsService();
 	private SelectVacation_itemsService selectVacService = new SelectVacation_itemsService();
+	private ModifyAttService modifyAttService = new ModifyAttService();
+	private ModifyVacService modifyVacService = new ModifyVacService();
 
+	
 	SimpleDateFormat fdate = new SimpleDateFormat("yyyy-MM-dd"); // 같은 형식으로 맞춰줌
 	Date vac_start;
 	Date vac_end;
@@ -80,7 +84,10 @@ public class AttVac_itemsHandler implements CommandHandler {
 			Vacation_itemsRequest vacReq = null;
 			Attend_itemsRequest attReq = null;
 			
-			if(req.getParameter("vac_name") != null) {
+			//휴가항목 저장
+			if(req.getParameter("vac_button") != null) {
+				if (req.getParameter("vac_button").equals("保存")) {
+					
 				vacReq = new Vacation_itemsRequest(
 						req.getParameter("vac_name"),
 						vac_start,
@@ -102,9 +109,11 @@ public class AttVac_itemsHandler implements CommandHandler {
 				}
 				
 				Vacation_items vacation_items = insertVacService.insert(vacReq);
-			}
-			
-			if(req.getParameter("att_name") != null) {
+			}}
+			//근태항목 저장
+			if(req.getParameter("att_button") != null) {
+				if (req.getParameter("att_button").equals("保存")) {
+					System.out.println("dddddddddddddddddddddddd");
 				attReq = new Attend_itemsRequest(
 						req.getParameter("att_name"),
 						req.getParameter("att_unit"),
@@ -114,7 +123,6 @@ public class AttVac_itemsHandler implements CommandHandler {
 						req.getParameter("att_used")
 						);
 				attReq.validate(errors);		
-				
 				
 				if(!errors.isEmpty()) {	// 에러가있으면 newArticleForm 주소를 반환
 					List<Vacation_items> list_vac = selectVacService.select();
@@ -129,16 +137,21 @@ public class AttVac_itemsHandler implements CommandHandler {
 				Attend_items attend_items = insertAttService.insert(attReq);  
 
 			}
-				if(req.getParameter("vac_name_picked") != null) {
+			}
+				//휴가항목 선택
+				if(req.getParameter("vac_button") != null) {
+					if (req.getParameter("vac_button").equals("選択")) {
 				
 					String name_picked = req.getParameter("vac_name_picked");
 					
 					Vacation_items vac_picked = selectVacService.selectbyName(name_picked);
 					req.setAttribute("vac_picked", vac_picked);
 			
-			}
-				//근태 이프문 들어갈 곳
-				if(req.getParameter("att_name_picked") != null) {
+			}}
+			
+				//근태항목 선택
+				if(req.getParameter("att_button") != null) {
+					if (req.getParameter("att_button").equals("選択")) {
 					
 					String name_picked = req.getParameter("att_name_picked");
 					
@@ -146,8 +159,49 @@ public class AttVac_itemsHandler implements CommandHandler {
 					req.setAttribute("att_picked", att_picked);
 			
 			}
+				}
 				
+				// 휴가항목 수정
+				  if (req.getParameter("vac_button") != null) { 
+					  if (req.getParameter("vac_button").equals("修正")) {
+				  
+				  String before_name = req.getParameter("vac_before_name");
+				  
+				  Vacation_items new_vac = new Vacation_items(				 
+						  req.getParameter("vac_name"), 
+						  vac_start,
+						  vac_end,
+						  req.getParameter("vac_used")
+						  );
+				  
+				  modifyVacService.update(before_name, new_vac);
+				  
+				  } 
+				  }
+				 
 
+				// 근태항목 수정
+				if (req.getParameter("att_button") != null) {
+					if (req.getParameter("att_button").equals("修正")) {
+
+						String before_name = req.getParameter("att_before_name");
+
+						
+						Attend_items new_att = new Attend_items(
+								req.getParameter("att_name"),
+								req.getParameter("att_unit"),
+								req.getParameter("att_grp"),
+								req.getParameter("att_deduction"),
+								req.getParameter("att_conn"),
+								req.getParameter("att_used")
+								);
+
+						modifyAttService.update(before_name, new_att);
+					}
+				
+			
+				}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

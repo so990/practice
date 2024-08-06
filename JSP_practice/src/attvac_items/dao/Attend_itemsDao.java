@@ -5,11 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import attvac_items.model.Attend_items;
+import attvac_items.model.Vacation_items;
 import jdbc.JdbcUtil;
 
 public class Attend_itemsDao {
@@ -93,6 +93,23 @@ public class Attend_itemsDao {
 					"delete from attend_items where att_name =?")){
 				pstmt.setString(1, name);
 				pstmt.executeUpdate();
+			}
+		}
+	 
+	 //근태항목 수정
+	 public int update (Connection conn, String before_name, Attend_items att) throws SQLException{
+			try(PreparedStatement pstmt = conn.prepareStatement(
+					"update attend_items set att_name=?, att_unit=?, att_grp=?, att_deduction =?, att_conn =?, att_used=? where att_name =?")){
+				
+				pstmt.setString(1, att.getAtt_name());
+				pstmt.setString(2, att.getAtt_unit());
+				pstmt.setString(3, att.getAtt_grp());
+				pstmt.setString(4, att.getAtt_deduction());
+				pstmt.setString(5, att.getAtt_conn());
+				pstmt.setString(6, att.getAtt_used());
+				pstmt.setString(7, before_name);
+				
+				return pstmt.executeUpdate();
 			}
 		}
 	

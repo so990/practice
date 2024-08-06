@@ -15,6 +15,7 @@ import payded_items.model.Payment_items;
 import payded_items.service.Deduction_itemsRequest;
 import payded_items.service.InsertDeduction_itemsService;
 import payded_items.service.InsertPayment_itemsService;
+import payded_items.service.ModifyDedService;
 import payded_items.service.ModifyPayService;
 import payded_items.service.Payment_itemsRequest;
 import payded_items.service.SelectDeduction_itemsService;
@@ -29,6 +30,7 @@ public class PayDed_itemsHandler implements CommandHandler {
 	private SelectDeduction_itemsService selectDedService = new SelectDeduction_itemsService();
 	private SelectAttend_itemsService selectAttService = new SelectAttend_itemsService();
 	private ModifyPayService modifyPayService = new ModifyPayService();
+	private ModifyDedService modifyDedService = new ModifyDedService();
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -49,7 +51,7 @@ public class PayDed_itemsHandler implements CommandHandler {
 
 		List<Deduction_items> list_ded = selectDedService.select();
 		req.setAttribute("list_ded", list_ded);
-		
+
 		List<Attend_items> list_att = selectAttService.select();
 		req.setAttribute("list_att", list_att);
 
@@ -57,130 +59,150 @@ public class PayDed_itemsHandler implements CommandHandler {
 	}
 
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
-		
+
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
-		
-		try { 
-			
+
+		try {
+
 			Payment_itemsRequest payReq = null;
 			Deduction_itemsRequest dedReq = null;
-			
-			if(req.getParameter("pay_name") != null) {
-				payReq = new Payment_itemsRequest(
-						req.getParameter("pay_name"),
-						req.getParameter("pay_tax"),
-						req.getParameter("tax_free_name"),
-						req.getParameter("tax_free_limit"),	
-						req.getParameter("tax_memo"),	
-						req.getParameter("cut_unit"),	
-						req.getParameter("attend_conn"),	
-						req.getParameter("pay_cost"),	
-						req.getParameter("pay_used")
-						);
-				
-				payReq.validate(errors);
-				
-				if(!errors.isEmpty()) {	// 에러가있으면 newArticleForm 주소를 반환
-					
-					List<Payment_items> list_pay = selectPayService.select();
-					req.setAttribute("list_pay", list_pay);
-					
-					List<Deduction_items> list_ded = selectDedService.select();
-					req.setAttribute("list_ded", list_ded);
-					
-					List<Attend_items> list_att = selectAttService.select();
-					req.setAttribute("list_att", list_att);
-					
-					return FORM_VIEW;
-				}
-				
-				Payment_items payment_items = insertPayService.insert(payReq);
-			}
-			
-			if(req.getParameter("ded_name") != null) {
-				dedReq = new Deduction_itemsRequest(
-						req.getParameter("ded_name"),
-						req.getParameter("ded_memo"),
-						req.getParameter("ded_cut_unit"),
-						req.getParameter("ded_note"),
-						req.getParameter("ded_used")
-						);
-				dedReq.validate(errors);		
-				
-				
-				if(!errors.isEmpty()) {	// 에러가있으면 newArticleForm 주소를 반환
-					List<Payment_items> list_pay = selectPayService.select();
-					req.setAttribute("list_pay", list_pay);
-					
-					List<Deduction_items> list_ded = selectDedService.select();
-					req.setAttribute("list_ded", list_ded);
-					
-					List<Attend_items> list_att = selectAttService.select();
-					req.setAttribute("list_att", list_att);
-					
-					return FORM_VIEW;
-				}
 
-				Deduction_items deduction_items = insertDedService.insert(dedReq);
-  			}
-			
-			if(req.getParameter("pay_name_picked") != null) {
-				
-				String name_picked = req.getParameter("pay_name_picked");
-				
-				Payment_items pay_picked = selectPayService.selectbyName(name_picked);
-				req.setAttribute("pay_picked", pay_picked);
-			
+			// 지급항목 저장
+			if (req.getParameter("pay_button") != null) {
+				if (req.getParameter("pay_button").equals("保存")) {
+
+					payReq = new Payment_itemsRequest(req.getParameter("pay_name"), req.getParameter("pay_tax"),
+							req.getParameter("tax_free_name"), req.getParameter("tax_free_limit"),
+							req.getParameter("tax_memo"), req.getParameter("cut_unit"), req.getParameter("attend_conn"),
+							req.getParameter("pay_cost"), req.getParameter("pay_used"));
+
+					payReq.validate(errors);
+
+					if (!errors.isEmpty()) { // 에러가있으면 newArticleForm 주소를 반환
+
+						List<Payment_items> list_pay = selectPayService.select();
+						req.setAttribute("list_pay", list_pay);
+
+						List<Deduction_items> list_ded = selectDedService.select();
+						req.setAttribute("list_ded", list_ded);
+
+						List<Attend_items> list_att = selectAttService.select();
+						req.setAttribute("list_att", list_att);
+
+						return FORM_VIEW;
+					}
+
+					Payment_items payment_items = insertPayService.insert(payReq);
+				}
+			}
+
+			// 공제항목 저장
+			if (req.getParameter("ded_button") != null) {
+				if (req.getParameter("ded_button").equals("保存")) {
+
+					dedReq = new Deduction_itemsRequest(
+							req.getParameter("ded_name"), 
+							req.getParameter("ded_memo"),
+							req.getParameter("ded_cut_unit"), 
+							req.getParameter("ded_note"),
+							req.getParameter("ded_used")
+							);
+					dedReq.validate(errors);
+
+					if (!errors.isEmpty()) { // 에러가있으면 newArticleForm 주소를 반환
+						List<Payment_items> list_pay = selectPayService.select();
+						req.setAttribute("list_pay", list_pay);
+
+						List<Deduction_items> list_ded = selectDedService.select();
+						req.setAttribute("list_ded", list_ded);
+
+						List<Attend_items> list_att = selectAttService.select();
+						req.setAttribute("list_att", list_att);
+
+						return FORM_VIEW;
+					}
+
+					Deduction_items deduction_items = insertDedService.insert(dedReq);
+				}
+			}
+
+			// 지급항목 선택
+			if (req.getParameter("pay_button") != null) {
+				if (req.getParameter("pay_button").equals("選択")) {
+
+					String name_picked = req.getParameter("pay_name_picked");
+
+					Payment_items pay_picked = selectPayService.selectbyName(name_picked);
+					req.setAttribute("pay_picked", pay_picked);
+
+				}
+			}
+
+			// 공제항목 선택
+			if (req.getParameter("ded_button") != null) {
+				if (req.getParameter("ded_button").equals("選択")) {
+					String name_picked = req.getParameter("ded_name_picked");
+
+					Deduction_items ded_picked = selectDedService.selectbyName(name_picked);
+					req.setAttribute("ded_picked", ded_picked);
+				}
 			}
 			
-			//공제 이프문 들어갈 곳
-			if(req.getParameter("ded_name_picked") != null) {
-				
-				String name_picked = req.getParameter("ded_name_picked");
-				
-				Deduction_items ded_picked = selectDedService.selectbyName(name_picked);
-				req.setAttribute("ded_picked", ded_picked);
-			
+			// 지급항목 수정
+			if (req.getParameter("pay_button") != null) {
+				if (req.getParameter("pay_button").equals("修正")) {
+
+					String before_name = req.getParameter("pay_before_name");
+
+					Payment_items new_pay = new Payment_items(
+
+							req.getParameter("pay_name"), req.getParameter("pay_tax"),
+							req.getParameter("tax_free_name"), req.getParameter("tax_free_limit"),
+							req.getParameter("tax_memo"), req.getParameter("cut_unit"), req.getParameter("attend_conn"),
+							req.getParameter("pay_cost"), req.getParameter("pay_used"));
+
+					modifyPayService.update(before_name, new_pay);
+
+				}
 			}
-			
-			if(req.getParameter("update_sal_name") != null) {
-				
-				String before_name = req.getParameter("before_name");
-				
-				Payment_items new_pay = new Payment_items(
-						
-						req.getParameter("pay_name"),
-						req.getParameter("pay_tax"),
-						req.getParameter("tax_free_name"),
-						req.getParameter("tax_free_limit"),
-						req.getParameter("tax_memo"),
-						req.getParameter("cut_unit"),
-						req.getParameter("attend_conn"),
-						req.getParameter("pay_cost"),
-						req.getParameter("pay_used")
-						);							
-				
-				modifyPayService.update(before_name, new_pay);
-				
+
+			// 공제항목 수정
+			if (req.getParameter("ded_button") != null) {
+				if (req.getParameter("ded_button").equals("修正")) {
+					
+					System.out.println("수정");
+
+					String before_name = req.getParameter("ded_before_name");
+
+					Deduction_items new_ded = new Deduction_items(
+							req.getParameter("ded_name"),
+							req.getParameter("ded_memo"),
+							req.getParameter("ded_cut_unit"),
+							req.getParameter("ded_note"),
+							req.getParameter("ded_used"));
+
+					modifyDedService.update(before_name, new_ded);
+					
+				}
 			}
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		List<Payment_items> list_pay = selectPayService.select();
 		req.setAttribute("list_pay", list_pay);
-		
+
 		List<Deduction_items> list_ded = selectDedService.select();
 		req.setAttribute("list_ded", list_ded);
-		
+
 		List<Attend_items> list_att = selectAttService.select();
 		req.setAttribute("list_att", list_att);
-		return FORM_VIEW;	
-		//newArticleSuccess 주소를 반환
-		
+		return FORM_VIEW;
+		// newArticleSuccess 주소를 반환
+
 	}
 
 }

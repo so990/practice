@@ -1,19 +1,18 @@
 package attvac_items.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import attvac_items.model.Vacation_days_setting;
 import attvac_items.model.Vacation_items;
 import jdbc.JdbcUtil;
-import payded_items.model.Deduction_items;
 
 public class Vacation_itemsDao {
 	
@@ -24,8 +23,8 @@ public class Vacation_itemsDao {
 		try {
 			pstmt = conn.prepareStatement("insert into vacation_items values(?,?,?,?)");
 			pstmt.setString(1, vac.getVac_name());
-			pstmt.setTimestamp(2, toTimestamp(vac.getVac_start()));
-			pstmt.setTimestamp(3, toTimestamp(vac.getVac_end()));
+			pstmt.setDate(2, vac.getVac_start() );
+			pstmt.setDate(3, vac.getVac_end());
 			pstmt.setString(4, vac.getVac_used());
 						
 			int insertedCount = pstmt.executeUpdate();
@@ -114,10 +113,21 @@ public class Vacation_itemsDao {
 				pstmt.executeUpdate();
 			}
 		}
-	
-	private Timestamp toTimestamp(Date date) {
-		return new Timestamp(date.getTime());
-	}
+	 
+	 //휴가항목 수정
+	 public int update (Connection conn, String before_name, Vacation_items vac) throws SQLException{
+			try(PreparedStatement pstmt = conn.prepareStatement(
+					"update vacation_items set vac_name=?, vac_start=?, vac_end=?, vac_used =? where vac_name =?")){
+				
+				pstmt.setString(1, vac.getVac_name());
+				pstmt.setDate(2, vac.getVac_start());
+				pstmt.setDate(3, vac.getVac_end());
+				pstmt.setString(4, vac.getVac_used());
+				pstmt.setString(5, before_name);
+				
+				return pstmt.executeUpdate();
+			}
+		}
 	
 	private Vacation_items convertVacation_items(ResultSet rs) throws SQLException {
 		return new Vacation_items(

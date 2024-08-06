@@ -1,6 +1,6 @@
 package attvac_items.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Vacation_items {
 

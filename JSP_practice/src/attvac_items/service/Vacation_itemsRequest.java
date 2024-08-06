@@ -1,6 +1,6 @@
 package attvac_items.service;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Map;
 
 public class Vacation_itemsRequest {

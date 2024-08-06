@@ -14,6 +14,7 @@ import attvac_items.model.Attend_items;
 import attvac_items.model.Vacation_items;
 import jdbc.JdbcUtil;
 import payded_items.model.Deduction_items;
+import payded_items.model.Payment_items;
 
 public class Deduction_itemsDao {
 	
@@ -97,6 +98,23 @@ public class Deduction_itemsDao {
 				pstmt.executeUpdate();
 			}
 		}
+	 
+	//공제항목 수정
+		 public int update (Connection conn, String before_name, Deduction_items ded) throws SQLException{
+				try(PreparedStatement pstmt = conn.prepareStatement(
+						"update deduction_items set ded_name=?, ded_memo=?, ded_cut_unit=?, ded_note =?, ded_used =? "
+						+ "where ded_name =?")){
+					
+					pstmt.setString(1, ded.getDed_name());
+					pstmt.setString(2, ded.getDed_memo());
+					pstmt.setString(3, ded.getDed_cut_unit());
+					pstmt.setString(4, ded.getDed_note());
+					pstmt.setString(5, ded.getDed_used());
+					pstmt.setString(6, before_name);
+					
+					return pstmt.executeUpdate();
+				}
+			}
 	
 	private Deduction_items convertDeduction_items(ResultSet rs) throws SQLException {
 		return new Deduction_items(
